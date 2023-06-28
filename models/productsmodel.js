@@ -1,3 +1,4 @@
+const Product = require('../models/productsmodel');
 
 //CTOR of product 
 const mongoose = require('mongoose');
@@ -36,6 +37,7 @@ const Product = new Schema({
         required:true
     },
 });
+
 
 //exporting it to controler 
 module.exports = mongoose.model('productsmodel',Product)

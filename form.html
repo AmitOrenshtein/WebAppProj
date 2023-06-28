@@ -8,6 +8,7 @@
 
         <ul id="products"></ul>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://unpkg.com/js3d"></script>
         <script>
             $(function(){
                $.ajax({
@@ -29,6 +30,11 @@
                         $('#articles').append('<li>'+data.name+','+data._id+'</li>') 
                     }
                 })
+                $.ajax({
+                    url: 'http://localhost:8082/products/monthly-purchases',
+                  }).done(function(data) {
+                    displayMonthlyPurchaseGraph(data);
+                  });
                
             });
 
@@ -42,7 +48,34 @@
                 });
             });
         });
-            
+
+        function displayMonthlyPurchaseGraph(data) {
+            const labels = data.map(entry => entry.month);
+            const values = data.map(entry => entry.average);
+          
+            const ctx = document.getElementById('monthlyPurchaseChart').getContext('2d');
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels,
+                datasets: [{
+                  label: 'Monthly Average Purchase',
+                  data: values,
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          }
         </script>
+        
     </body>
 </html>
