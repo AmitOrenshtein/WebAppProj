@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Inventory Management</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  Hello world
+  <h1>Admin Inventory Management</h1>
+
+  <h2>Product Management</h2>
+  <form id="create-product-form">
+    <label for="product-name">Name:</label>
+    <input type="text" id="product-name" required>
+
+    <button type="submit">Create Product</button>
+  </form>
+
+  <div id="product-list">
+  </div>
+
+  <h2>Supplier Management</h2>
+  <form id="create-supplier-form">
+    <label for="supplier-name">Name:</label>
+    <input type="text" id="supplier-name" required>
+
+    <button type="submit">Create Supplier</button>
+  </form>
+
+  <div id="supplier-list">
+  </div>
+
+  <h2>Branch Management</h2>
+  <form id="create-branch-form">
+    <label for="branch-name">Name:</label>
+    <input type="text" id="branch-name" required>
+
+    <button type="submit">Create Branch</button>
+  </form>
+
+  <div id="branch-list">
+  </div>
+
+  <script src="admin_inventory.js"></script>
 </body>
+
 </html>
