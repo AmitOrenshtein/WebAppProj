@@ -2,7 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const mongoose = require('mongoose')
-const products =require('./routes/productsroute')
+const products =require('./routes/products')
+//in order to be able to change configs without changing code 
 const newLocal = require('custom-env')  
 newLocal.env(process.env.NODE_ENV,'./config');
 
