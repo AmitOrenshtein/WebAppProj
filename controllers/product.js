@@ -1,7 +1,8 @@
-const Productservice = require('../services/products')
+const Productservice = require('../services/product')
 
 const createProduct = async (req,res) => {
-  const newProduct = await Productservice.createProduct(req.body.name,image,video,descrpition,category,amountInInventory,supplier);
+  const {name,image, video, descrpition, category, amountInInventory,supplier}  = req.body
+  const newProduct = await Productservice.createProduct(name,image,video,descrpition,category,amountInInventory,supplier);
   res.json(newProduct)
 }
 

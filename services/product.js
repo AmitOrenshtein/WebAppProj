@@ -1,5 +1,5 @@
 //const { describe } = require('node:test');
-const Product = require('../models/products')
+const Product = require('../models/product')
 
 //feeding the CTOR with info
 const createProduct = async (name,image,video,brand,category,amountInInventory,supplier) => {
