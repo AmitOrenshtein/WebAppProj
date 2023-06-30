@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="node_modules/js3.d/js3d.min.js"></script>
+  
+  <title>Admin Graphs</title>
+</head>
+
+<body>
+  <h1>Admin Graphs</h1>
+
+  <div id="error-container"></div>
+
+  <div class="graph-container">
+    <h2>Graph 1</h2>
+    <div id="graph1"></div>
+  </div>
+
+  <div class="graph-container">
+    <h2>Graph 2</h2>
+    <div id="graph2"></div>
+  </div>
+
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch('/api/statistics');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        const errorContainer = document.getElementById('error-container');
+        errorContainer.textContent = 'Error fetching data. Please try again later.';
+        return null;
+      }
+    }
+
+    async function renderGraphs() {
+      const data = await fetchData();
+
+      if (!data) {
+        return;
+      }
+
+      const graph1Data = data.monthlyPurchases;
+      const graph1Options = {
+        title: 'Average Cumulative Average of Purchases',
+        type: 'line',
+        xLabel: 'Month',
+        yLabel: 'Average',
+        tooltip: true,
+        tooltipOptions: {
+          format: '{value}',
+        },
+      };
+      js3d.graph('graph1', graph1Data, graph1Options);
+
+      const graph2Data = data.anotherStatistic;
+      const graph2Options = {
+        title: 'Another Statistic',
+        type: 'bar',
+        xLabel: 'Category',
+        yLabel: 'Count',
+      };
+      js3d.graph('graph2', graph2Data, graph2Options);
+    }
+
+    window.addEventListener('load', renderGraphs);
+  </script>
+</body>
+
+</html>
