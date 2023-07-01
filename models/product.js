@@ -16,7 +16,8 @@ const Product = new Schema({
     },
     brand: {
         type: String,
-    },description: {
+    },
+    description: {
         type: String,
     },
     category: {
@@ -24,7 +25,7 @@ const Product = new Schema({
     },
     amountInInventory: {
         //change to int
-        type: String,
+        type: Number,
     },supplier: {
         type: String,
     },

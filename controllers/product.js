@@ -21,12 +21,11 @@ const getProduct = async (req,res) => {
 }
 //TODO - make it work with only specific paremeters inserted
 const updateProduct = async (req,res) => {
-  if (!req.body.name){
-    res.status(400).json({message:'name is required'});
-  }
+ 
 
   //TODO: make it work with only specific paremeters inserted
-  const product = await Productservice.updateProduct(req.params.id);
+  const {name,image, video, brand, descrpition, category, amountInInventory,supplier}  = req.body
+  const product = await Productservice.updateProduct(req.params.id, name, image, video, brand, descrpition, category, amountInInventory, supplier);
   if (!product){
     return res.status(404).json({errors:['Product not found']});
   }

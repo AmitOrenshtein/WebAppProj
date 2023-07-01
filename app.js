@@ -20,6 +20,6 @@ app.use(express.json());
 //app.set('view engine','ejs')
 //TODO - confirm below line to correct products file
 app.use('/products', products);
-app.listen(process.env.PORT,()=>{console.log("Listening to server")});
+app.listen(process.env.PORT,()=>{console.log("Listening to port")});
 
 //test 

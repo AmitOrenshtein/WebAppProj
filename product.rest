@@ -2,26 +2,50 @@ GET http://localhost:8081/products/
 
 ###
 
-GET http://localhost:8081/products/649fcc9696c6d4f851dd6400
+GET http://localhost:8081/products/649fdc4992093148a11c1959
+
 
 ###
 
+
 POST http://localhost:8081/products/
 Content-Type: application/json
-//this command only adds the name to the DB
+//full POST - works
+
 {
-    "name":"new test again",
-    "category":"abc",
-    "brand": "adidas"
+    "name":"test for desc",
+    "category":"football shoes",
+    "brand": "adidas",
+    "description": "good for parquet",
+    "amountInInventory": 5,
+    "video": "https://www.youtube.com/watch?v=hvmURkVDZyI",
+    "image": "https://m.media-amazon.com/images/I/71gFzfxnGIS._AC_UL600_FMwebp_QL65_.jpg",
+    "supplier": "good shoes LTD"
 }
 
 
 ###
 
-PUT http://localhost:8081/products/649fcc9696c6d4f851dd6400
+
+POST http://localhost:8081/products/
+Content-Type: application/json
+//partial POST - works
+
+{
+    "name":"partial POST test",
+    "category":"football shoes"
+
+}
+
+
+###
+
+
+PUT http://localhost:8081/products/649fdf63a8dff32aa32df894
 Content-Type: application/json
 //Accept: application/json
-//this command does not work
+//Full PUT - works
+
 {
     "name": "new name test",
     "image": "image test",
@@ -29,13 +53,26 @@ Content-Type: application/json
     "brand": "brand test",
     "category": "category test",
     "description": "description test",
-    "amountInInventory": "amountInInventory test",
+    "amountInInventory": 18,
     "supplier": "supplier test"
 }
+
+###
+
+PUT http://localhost:8081/products/649fdf63a8dff32aa32df894
+Content-Type: application/json
+//Accept: application/json
+//Partial PUT - works
+
+{
+    "description": "new test description"
+}
+
+
 
 
 ###
 
-DELETE  http://localhost:8081/products/649fc360cb38b032dd949f8c
+DELETE  http://localhost:8081/products/649ea186cdb4828ddd71ad95
 
 
