@@ -6,8 +6,9 @@ function addToShoppingCart(req, res) {
         console.log("adding to cart!");
         //todo: Get product from DB
         let prod = {
+            id: prodId,
             title: "tempTitle",
-            image: "...",
+            image: "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/u7khoqev6hy2xgsllrnb/revolution-5-mens-road-running-shoes-ZXqS6C.png",
             price: 100
         }
         let cart = [];
@@ -29,7 +30,7 @@ function removeFromShoppingCart(req, res) {
             req.session.cart = cart;
         }
     }
-    res.send();
+    getShoppingCart(req, res);
 }
 
 function getShoppingCart(req, res) {
