@@ -10,5 +10,6 @@ app.use(session({
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 app.use("/", require("./routes/login"));
+app.use("/shoppingCart/", require("./routes/shoppingCart"));
 app.listen(80);
 console.log("server up and listening on port 80");

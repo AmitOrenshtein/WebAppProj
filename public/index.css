@@ -1,0 +1,22 @@
+.hidden {
+    display: none;
+}
+.prodImg {
+    aspect-ratio: 1/1;
+}
+
+.cartInBuyBtn {
+    vertical-align: baseline;
+}
+
+.placeholderLabel {
+    display: block;
+}
+
+.productCard {
+    cursor: pointer;
+}
+
+.productCard:hover {
+    background-color: #dbd7d7;
+}
