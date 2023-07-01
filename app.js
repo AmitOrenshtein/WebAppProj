@@ -10,7 +10,7 @@ newLocal.env(process.env.NODE_ENV,'./config');
 mongoose.connect(process.env.CONNECTION_STRING,
     {useNewUrlParser:true,
     useUnifiedTopology:true});
-mongoose.connection.once("open", ()=>{console.log("connect to DB")})
+mongoose.connection.once("open", ()=>{console.log("connected to DB")})
 
 const app = express();
 app.use(cors());
@@ -20,6 +20,6 @@ app.use(express.json());
 //app.set('view engine','ejs')
 //TODO - confirm below line to correct products file
 app.use('/products', products);
-app.listen(process.env.PORT,()=>{console.log("Listen to server")});
+app.listen(process.env.PORT,()=>{console.log("Listening to server")});
 
 //test 

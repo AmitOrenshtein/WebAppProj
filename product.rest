@@ -2,10 +2,40 @@ GET http://localhost:8081/products/
 
 ###
 
-POST http://localhost:8081/
-Content-Type: application/json
+GET http://localhost:8081/products/649fcc9696c6d4f851dd6400
 
+###
+
+POST http://localhost:8081/products/
+Content-Type: application/json
+//this command only adds the name to the DB
 {
-    "name":"test",
-    "type":"abc"
+    "name":"new test again",
+    "category":"abc",
+    "brand": "adidas"
 }
+
+
+###
+
+PUT http://localhost:8081/products/649fcc9696c6d4f851dd6400
+Content-Type: application/json
+//Accept: application/json
+//this command does not work
+{
+    "name": "new name test",
+    "image": "image test",
+    "video": "video test",
+    "brand": "brand test",
+    "category": "category test",
+    "description": "description test",
+    "amountInInventory": "amountInInventory test",
+    "supplier": "supplier test"
+}
+
+
+###
+
+DELETE  http://localhost:8081/products/649fc360cb38b032dd949f8c
+
+

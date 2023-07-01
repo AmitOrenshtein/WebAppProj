@@ -2,6 +2,7 @@
 const Product = require('../models/product')
 
 //feeding the CTOR with info
+//maybe add req.body 
 const createProduct = async (name,image,video,brand,category,amountInInventory,supplier) => {
     const product = new Product(
             {
@@ -29,17 +30,18 @@ const getProducts = async() =>{
 }
 
 //TODO: find out how to update only specific parameters
-const updateProduct = async (id, name,image,video,brand,category,amountInInventory,supplier) => {
+const updateProduct = async (id, name,image,video,brand,category,description, amountInInventory,supplier) => {
     const product = await getProductById(id);
     if (!product)
         return null;
-    product.name=name,
-    product.image=image,
-    product.video=video,
-    product.brand=brand,
-    product.category=category,
-    product.amountInInventory=amountInInventory,
-    product.supplier=supplier
+    product.name = name;
+    product.image = image;
+    product.video = video;
+    product.brand = brand;
+    product.category = category;
+    product.description = description;
+    product.amountInInventory = amountInInventory;
+    product.supplier = supplier;
     await product.save();
     return product;
 }
