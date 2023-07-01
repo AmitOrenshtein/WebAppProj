@@ -1,4 +1,17 @@
-const express = require('express');
+const express = require('express')
+const bodyParser = require('body-parser');
+const cors = require('cors')
+const mongoose = require('mongoose')
+const products =require('./routes/product')
+//in order to be able to change configs without changing code
+const newLocal = require('custom-env')
+newLocal.env(process.env.NODE_ENV,'./config');
+
+mongoose.connect(process.env.CONNECTION_STRING,
+    {useNewUrlParser:true,
+    useUnifiedTopology:true});
+mongoose.connection.once("open", ()=>{console.log("connected to DB")})
+
 const app = express();
 const session = require('express-session');
 app.use(session({
@@ -8,8 +21,13 @@ app.use(session({
 }));
 
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: false }));
-app.use("/", require("./routes/login"));
+app.use(cors());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json());
+
+//app.set('view engine','ejs')
+//TODO - confirm below line to correct products file
+app.use('/products', products);
+app.use("/login", require("./routes/login"));
 app.use("/shoppingCart/", require("./routes/shoppingCart"));
-app.listen(80);
-console.log("server up and listening on port 80");
+app.listen(process.env.PORT,()=>{console.log("Listening to port")});
