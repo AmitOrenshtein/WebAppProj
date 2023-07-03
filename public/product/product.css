@@ -21,3 +21,9 @@
 .prodPriceAndBuy {
     margin: 15px 0;
 }
+
+.changeCurrencyDiv {
+    display: inline-block;
+    font-size: smaller;
+    margin-left: 20px;
+}
