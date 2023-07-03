@@ -3,9 +3,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const mongoose = require('mongoose')
 const products =require('./routes/product')
+const login = require("./routes/login");
+const shoppingCart = require("./routes/shoppingCart");
 //in order to be able to change configs without changing code
 const newLocal = require('custom-env')
-newLocal.env(process.env.NODE_ENV,'./config');
+newLocal.env("test",'./config');
 
 mongoose.connect(process.env.CONNECTION_STRING,
     {useNewUrlParser:true,
@@ -28,6 +30,6 @@ app.use(express.json());
 //app.set('view engine','ejs')
 //TODO - confirm below line to correct products file
 app.use('/products', products);
-app.use("/login", require("./routes/login"));
-app.use("/shoppingCart/", require("./routes/shoppingCart"));
+app.use("/login", login);
+app.use("/shoppingCart/", shoppingCart);
 app.listen(process.env.PORT,()=>{console.log("Listening to port")});

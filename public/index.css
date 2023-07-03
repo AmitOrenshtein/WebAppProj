@@ -2,7 +2,13 @@
     display: none;
 }
 .prodImg {
-    aspect-ratio: 1/1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.prodImgContainer {
+    width: 100%;
+    aspect-ratio: 12/9;
 }
 
 .cartInBuyBtn {
@@ -15,6 +21,7 @@
 
 .productCard {
     cursor: pointer;
+    height: 100% !important;
 }
 
 .productCard:hover {

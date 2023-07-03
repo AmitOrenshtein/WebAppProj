@@ -3,7 +3,8 @@
 }
 .prodImg {
     width: 100%;
-    aspect-ratio: 1/1;
+    height: 100%;
+    object-fit: contain;
 }
 
 .prodCartRow {
@@ -13,6 +14,8 @@
 
 .prodImgCol {
     padding-left: 0 !important;
+    width: 100%;
+    aspect-ratio: 12/9;
 }
 
 .removeBtnCol {

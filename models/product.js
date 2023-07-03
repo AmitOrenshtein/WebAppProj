@@ -28,7 +28,9 @@ const Product = new Schema({
         type: Number,
     },supplier: {
         type: String,
-    },
+    }, price: {
+        type: Number
+    }
 });
 
 //exporting it to controler 

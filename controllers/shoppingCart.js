@@ -1,21 +1,26 @@
-function addToShoppingCart(req, res) {
+const ProductService = require('../services/product');
+
+async function addToShoppingCart(req, res) {
     console.log("recieved add cart request");
     const { prodId } = req.body;
     console.log(prodId)
     if(prodId) {
-        console.log("adding to cart!");
-        //todo: Get product from DB
-        let prod = {
-            id: prodId,
-            title: "tempTitle",
-            image: "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/u7khoqev6hy2xgsllrnb/revolution-5-mens-road-running-shoes-ZXqS6C.png",
-            price: 100
+        const prod = await ProductService.getProductById(prodId);
+        if(prod) {
+            let prodForCart = {
+                id: prodId,
+                title: prod.name,
+                image: prod.image,
+                price: prod.price
+            }
+            let cart = [];
+            if(req.session && req.session.cart)
+                cart = req.session.cart;
+            cart.push(prodForCart);
+            req.session.cart = cart;
+        } else {
+            console.log("prod with " + prodId + " not found");
         }
-        let cart = [];
-        if(req.session && req.session.cart)
-            cart = req.session.cart;
-        cart.push(prod);
-        req.session.cart = cart;
     }
     res.send();
 }

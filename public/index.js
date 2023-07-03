@@ -44,13 +44,23 @@ tempProdList = [
 ];
 
 $(document).ready(function () {
-    showProducts(tempProdList);
+    getAllProducts();
 
     $( "#searchForm" ).on( "submit", function( event ) {
         event.preventDefault();
         search();
     });
 });
+
+function getAllProducts() {
+    $.ajax({
+        type: "GET",
+        url:"http://localhost:80/products/",
+        success: function(data){
+            showProducts(data);
+        }
+    });
+}
 
 function search() {
     let searchText = $("#searchText").val();
@@ -69,7 +79,7 @@ function showProducts(products) {
         let currProdData = products[i];
         let newProduct = example.clone();
         newProduct.attr("id", i);
-        newProduct.find(".prodTitle").html(currProdData.title);
+        newProduct.find(".prodTitle").html(currProdData.name);
         newProduct.find(".prodDesc").html(currProdData.description);
         newProduct.find(".prodPrice").html(currProdData.price);
         newProduct.find(".prodImg").attr("src", currProdData.image);
@@ -78,7 +88,7 @@ function showProducts(products) {
                 productClick(currProdData);
         });
         newProduct.find(".addBtn").on("click", () => {
-            addToCart(currProdData.id)
+            addToCart(currProdData._id)
         });
         productsContainer.append(newProduct);
     }
@@ -96,5 +106,5 @@ function addToCart(prodId) {
 }
 
 function productClick(product) {
-    window.location.href = window.location.href + '/product?id='+product.id;
+    window.location.href = window.location.href + '/product?id='+product._id;
 }
