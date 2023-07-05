@@ -1,9 +1,13 @@
-const express = require('express')
+const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors')
-const mongoose = require('mongoose')
-const products =require('./routes/product')
-//in order to be able to change configs without changing code 
+const cors = require('cors');
+const mongoose = require('mongoose');
+const products = require('./routes/product');
+const suppliers = require('./routes/supplier');
+const users = require('./routes/user');
+const branches = require('./routes/branch');
+//const purchasehistorys = require('./routes/purchasehistory');
+
 const newLocal = require('custom-env')  
 newLocal.env(process.env.NODE_ENV,'./config');
 
@@ -16,10 +20,13 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
-
-//app.set('view engine','ejs')
-//TODO - confirm below line to correct products file
 app.use('/products', products);
+app.use('/suppliers', suppliers);
+app.use('/users', users);
+app.use('/branches', branches);
+
+//app.use('/purchasehistory', purchasehistorys);
+
 app.listen(process.env.PORT,()=>{console.log("Listening to port")});
 
 //test 
