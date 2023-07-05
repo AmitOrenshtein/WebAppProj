@@ -1,0 +1,77 @@
+GET http://localhost:8081/users/
+
+###
+
+GET http://localhost:8081/users/64a01d791e54b4812186ace7
+
+
+###
+
+
+GET http://localhost:8081/
+
+
+###
+
+
+POST http://localhost:8081/users/
+Content-Type: application/json
+//full POST - works
+
+{
+    "username":"usertestnumber2",
+    "password":"1234567890",
+    "userType":"regular",
+    "deliveryAdress": "Allenby 100"
+}
+
+
+###
+
+
+POST http://localhost:8081/users/
+Content-Type: application/json
+//partial POST - works
+
+{
+    "name":"BB nice shoes"
+
+}
+
+
+###
+
+
+PUT http://localhost:8081/users/64a01d791e54b4812186ace7
+Content-Type: application/json
+//Accept: application/json
+//Full PUT - works
+
+{
+    "username":"usertestnumber2 new name",
+    "password":"1234567890newpass",
+    "userType":"regular",
+    "deliveryAdress": "Allenby 200"
+}
+
+###
+
+//TODO change user product list
+
+PUT http://localhost:8081/users/64a01d791e54b4812186ace7
+Content-Type: application/json
+//Accept: application/json
+//Partial PUT - works
+
+{
+    "deliveryAdress": "Allenby 100"
+}
+
+
+
+
+###
+
+DELETE  http://localhost:8081/users/64a01d461e54b4812186ace0
+
+

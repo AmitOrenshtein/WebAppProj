@@ -2,7 +2,13 @@ GET http://localhost:8081/products/
 
 ###
 
-GET http://localhost:8081/products/649fdc4992093148a11c1959
+GET http://localhost:8081/products/64a017302991751855bbb2cb
+
+
+###
+
+
+GET http://localhost:8081/products?getProductsByCategory
 
 
 ###
@@ -13,14 +19,15 @@ Content-Type: application/json
 //full POST - works
 
 {
-    "name":"test for desc",
-    "category":"football shoes",
+    "name":"Messi's Shoes",
+    "category":"football",
     "brand": "adidas",
-    "description": "good for parquet",
-    "amountInInventory": 5,
+    "description": "good for grass and kicking",
+    "amountInInventory": 6,
     "video": "https://www.youtube.com/watch?v=hvmURkVDZyI",
     "image": "https://m.media-amazon.com/images/I/71gFzfxnGIS._AC_UL600_FMwebp_QL65_.jpg",
-    "supplier": "good shoes LTD"
+    "supplier": "good shoes LTD",
+    "price": 100
 }
 
 
@@ -41,7 +48,7 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:8081/products/649fdf63a8dff32aa32df894
+PUT http://localhost:8081/products/64a017302991751855bbb2cb
 Content-Type: application/json
 //Accept: application/json
 //Full PUT - works
@@ -53,19 +60,19 @@ Content-Type: application/json
     "brand": "brand test",
     "category": "category test",
     "description": "description test",
-    "amountInInventory": 18,
+    "amountInInventory": 25,
     "supplier": "supplier test"
 }
 
 ###
 
-PUT http://localhost:8081/products/649fdf63a8dff32aa32df894
+PUT http://localhost:8081/products/64a017302991751855bbb2cb
 Content-Type: application/json
 //Accept: application/json
 //Partial PUT - works
 
 {
-    "description": "new test description"
+    "price": 99
 }
 
 
@@ -73,6 +80,6 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:8081/products/649ea186cdb4828ddd71ad95
+DELETE  http://localhost:8081/products/64a00b4c71050196fcfe61c3
 
 

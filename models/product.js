@@ -24,12 +24,12 @@ const Product = new Schema({
         type: String,
     },
     amountInInventory: {
-        //change to int
         type: Number,
-    },supplier: {
+   },supplier: {
         type: String,
-    }, price: {
-        type: Number
+    },
+    price: {
+        type: Number,
     }
 });
 

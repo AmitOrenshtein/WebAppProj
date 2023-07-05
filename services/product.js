@@ -3,7 +3,7 @@ const Product = require('../models/product')
 
 //feeding the CTOR with info
 //maybe add req.body 
-const createProduct = async (name, image, video, brand, description, category, amountInInventory, supplier) => {
+const createProduct = async (name, image, video, brand, description, category, amountInInventory, supplier,price) => {
     const product = new Product(
             {
                 name:name,
@@ -13,7 +13,8 @@ const createProduct = async (name, image, video, brand, description, category, a
                 description:description,
                 category:category,
                 amountInInventory:amountInInventory,
-                supplier:supplier
+                supplier:supplier,
+                price:price
             });
     //saving to DB
     return await product.save()
@@ -30,8 +31,14 @@ const getProducts = async() =>{
     return await Product.find({})
 }
 
-//TODO: find out how to update only specific parameters
-const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory,supplier) => {
+const getProductsByCategory = async(searchedCategory) =>{
+    return (await Product.find({category : "football"}));
+
+    //TODO make this work including the multiple GET commands 
+}
+
+
+const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory,supplier,price) => {
     const product = await getProductById(id);
     if (!product)
         return null;
@@ -67,6 +74,10 @@ const updateProduct = async (id, name,image,video,brand,description, category, a
         product.supplier = product.supplier;
     else
         product.supplier = supplier;
+    if(!price)
+        product.price = product.price;
+    else
+        product.price = price;
     await product.save();
     return product;
 }
@@ -83,6 +94,7 @@ module.exports = {
     createProduct,
     getProductById,
     getProducts,
+    getProductsByCategory,
     updateProduct,
     deleteProduct
 }
