@@ -8,8 +8,8 @@ const createBranch = async (req,res) => {
 
 
 const getBranches = async (req,res) => {
-  const Branchs = await Branchservice.getBranchs();
-  res.json(Branchs);
+  const Branches = await Branchservice.getBranches();
+  res.json(Branches);
 }
 
 const getBranch = async (req,res) => {

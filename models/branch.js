@@ -7,8 +7,11 @@ const Branch = new Schema({
     name: {
         type: String,
     },
-    address: {
-        type: String,
+    lat: {
+        type: Number,
+    },
+    lng: {
+        type: Number,
     }
 });
 
