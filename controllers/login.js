@@ -1,34 +1,33 @@
-function login(req, res) {
-    console.log("login request...");
+const UserService = require('../services/user');
+
+async function login(req, res) {
     const { username, password } = req.body
-    let user = findUser(username, password);
+    let user= await UserService.getUserByUsernameAndPass(username, password);
     if (user) {
-        console.log("logged in!");
-        req.session.username = username;
+        console.log("logged in to user: " + username);
+        req.session.loggedUser = {
+            id: user._id,
+            username: user.username
+        };
         res.redirect('/');
     }
     else {
-        console.log("incorrect!")
-        res.redirect('/login?error=1')
+        console.log("incorrect!");
+        res.redirect('/login?error=1');
     }
 }
 
 function logout(req, res) {
-    req.session.username = undefined;
+    req.session.loggedUser = undefined;
     res.redirect('/');
 }
 
 function getLoggedUser(req, res) {
     let user = undefined;
     if(req.session) {
-        user =req.session.username;
+        user =req.session.loggedUser;
     }
     res.send(user);
-}
-
-function findUser(username, password) {
-    // TODO: This is a stub. replace with user search in DB
-    return (username === 'amit' && password === '123');
 }
 
 module.exports = {

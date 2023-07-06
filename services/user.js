@@ -22,6 +22,9 @@ const getUsers = async() =>{
     return await User.find({})
 }
 
+const getUserByUsernameAndPass = async (username, password) => {
+    return User.findOne({username: username});
+}
 //TODO get user product list
 
 /*
@@ -74,5 +77,6 @@ module.exports = {
     getUserById,
     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserByUsernameAndPass
 }
