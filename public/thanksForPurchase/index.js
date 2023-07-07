@@ -25,7 +25,7 @@ function shareOnFacebook() {
     FB.ui(
       {
         method: 'share',
-        href: 'https://your-website.com/thanks.html', // Replace with the URL of the thanks.html page
+        href: 'http://localhost/thanksForPurchase/', // Replace with the URL of the thanks.html page
       },
       function(response) {
         if (response && !response.error_code) {
