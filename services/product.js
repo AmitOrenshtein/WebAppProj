@@ -1,4 +1,3 @@
-//const { describe } = require('node:test');
 const Product = require('../models/product')
 
 //feeding the CTOR with info
@@ -38,7 +37,7 @@ const getProductsByCategory = async(searchedCategory) =>{
 }
 
 
-const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory,supplier,price) => {
+const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory, price) => {
     const product = await getProductById(id);
     if (!product)
         return null;
@@ -70,10 +69,6 @@ const updateProduct = async (id, name,image,video,brand,description, category, a
         product.amountInInventory = product.amountInInventory;
     else
         product.amountInInventory = amountInInventory;
-    if(!supplier)
-        product.supplier = product.supplier;
-    else
-        product.supplier = supplier;
     if(!price)
         product.price = product.price;
     else

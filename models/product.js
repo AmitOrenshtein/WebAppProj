@@ -25,9 +25,7 @@ const Product = new Schema({
     },
     amountInInventory: {
         type: Number,
-   },supplier: {
-        type: String,
-    }, 
+   },
     price: {
         type: Number,
     }

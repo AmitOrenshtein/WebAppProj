@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const products = require('./routes/product');
-const suppliers = require('./routes/supplier');
 const users = require('./routes/user');
 const branches = require('./routes/branch');
 //const purchasehistorys = require('./routes/purchasehistory');
@@ -21,7 +20,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
 app.use('/products', products);
-app.use('/suppliers', suppliers);
 app.use('/users', users);
 app.use('/branches', branches);
 
