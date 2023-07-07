@@ -23,7 +23,7 @@ const getUsers = async() =>{
 }
 
 const getUserByUsernameAndPass = async (username, password) => {
-    return User.findOne({username: username});
+    return User.findOne({username: username, password: password});
 }
 //TODO get user product list
 
