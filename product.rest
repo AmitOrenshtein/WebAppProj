@@ -8,7 +8,7 @@ GET http://localhost:8081/products/64a017302991751855bbb2cb
 ###
 
 
-GET http://localhost:8081/products?getProductsByCategory
+GET http://localhost:8081/products/abc
 
 
 ###
@@ -26,7 +26,6 @@ Content-Type: application/json
     "amountInInventory": 6,
     "video": "https://www.youtube.com/watch?v=hvmURkVDZyI",
     "image": "https://m.media-amazon.com/images/I/71gFzfxnGIS._AC_UL600_FMwebp_QL65_.jpg",
-    "supplier": "good shoes LTD",
     "price": 100
 }
 
@@ -61,7 +60,6 @@ Content-Type: application/json
     "category": "category test",
     "description": "description test",
     "amountInInventory": 25,
-    "supplier": "supplier test"
 }
 
 ###
