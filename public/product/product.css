@@ -1,0 +1,29 @@
+.hidden {
+    display: none;
+}
+.prodTitle {
+    margin-bottom: 20px;
+}
+
+.prodImg {
+    width: 100%;
+}
+
+.prodDesc {
+    margin: 15px 0;
+}
+
+.prodVid {
+    width: 100%;
+    aspect-ratio: 560/315;
+}
+
+.prodPriceAndBuy {
+    margin: 15px 0;
+}
+
+.changeCurrencyDiv {
+    display: inline-block;
+    font-size: smaller;
+    margin-left: 20px;
+}

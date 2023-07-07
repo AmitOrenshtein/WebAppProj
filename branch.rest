@@ -1,0 +1,74 @@
+GET http://localhost:8081/branches/
+
+###
+
+GET http://localhost:8081/branches/64a393227b866816e47c8dd4
+
+
+###
+
+
+GET http://localhost:8081/
+
+
+###
+
+
+POST http://localhost:8081/branches/
+Content-Type: application/json
+//full POST - works
+
+{
+    "name":"tel aviv center",
+    "address":"https://www.google.com/maps/place/Dizengoff+Center/@32.0752226,34.7722591,17z/data=!3m1!4b1!4m6!3m5!1s0x151d4b8064c7531d:0x5521e5d0583bd2df!8m2!3d32.0752181!4d34.774834!16s%2Fm%2F04ycgsq?entry=ttu"
+   
+}
+
+
+###
+
+
+POST http://localhost:8081/branches/
+Content-Type: application/json
+//partial POST - works
+
+{
+    "name":"Tel aviv center new"
+
+}
+
+
+###
+
+
+PUT http://localhost:8081/branches/64a393227b866816e47c8dd4
+Content-Type: application/json
+//Accept: application/json
+//Full PUT - works
+
+{
+    "name":"jerusalem north",
+    "address":"https://www.google.com/maps/place/%D7%A7%D7%A0%D7%99%D7%95%D7%9F+%D7%9E%D7%9C%D7%97%D7%94+-+%D7%A2%D7%96%D7%A8%D7%99%D7%90%D7%9C%D7%99+%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D%E2%80%AD/@31.7515208,35.18982,17z/data=!3m1!4b1!4m6!3m5!1s0x1502d78e88f22265:0x1bbea48c585cde51!8m2!3d31.7515163!4d35.1872451!16s%2Fg%2F11b6yb8clp?entry=ttu"
+}
+
+###
+
+//TODO change branch product list
+
+PUT http://localhost:8081/branches/64a393227b866816e47c8dd4
+Content-Type: application/json
+//Accept: application/json
+//Partial PUT - works
+
+{
+    "name": "Tel aviv center new"
+}
+
+
+
+
+###
+
+DELETE  http://localhost:8081/branches/64a393387b866816e47c8dd7
+
+

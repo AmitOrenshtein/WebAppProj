@@ -1,0 +1,41 @@
+.hidden {
+    display: none !important;
+}
+.prodImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.prodCartRow {
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.prodImgCol {
+    padding-left: 0 !important;
+    width: 100%;
+    aspect-ratio: 12/9;
+}
+
+.removeBtnCol {
+    display: none;
+}
+
+.prodCartRow:hover {
+    background-color: #dbd7d7;
+}
+
+.prodCartRow:hover > .removeBtnCol {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.removeBtn {
+    max-width: 100%;
+    margin: auto 0;
+}
+
+#exampleRow {
+    display: none;
+}

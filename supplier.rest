@@ -1,0 +1,75 @@
+GET http://localhost:8081/suppliers/
+
+###
+
+GET http://localhost:8081/suppliers/64a017bdd2a5a8d72d6f8cfd
+
+
+###
+
+
+GET http://localhost:8081/
+
+
+###
+
+
+POST http://localhost:8081/suppliers/
+Content-Type: application/json
+//full POST - works
+
+{
+    "name":"CC Good shoes LTD",
+    "productList":["649fdc6492093148a11c195e", "649fdcb54d9fa597dedec5f4"],
+    "email": "123@gmail.com"
+}
+
+
+###
+
+
+POST http://localhost:8081/suppliers/
+Content-Type: application/json
+//partial POST - works
+
+{
+    "name":"BB nice shoes"
+
+}
+
+
+###
+
+
+PUT http://localhost:8081/suppliers/64a017bdd2a5a8d72d6f8cfd
+Content-Type: application/json
+//Accept: application/json
+//Full PUT - works
+
+{
+    "name": "supplier test shoes",
+    "email": "456@gmail.com ",
+    "productList" : "list test"
+}
+
+###
+
+//TODO change supplier product list
+
+PUT http://localhost:8081/suppliers/64a0183dd2a5a8d72d6f8d09
+Content-Type: application/json
+//Accept: application/json
+//Partial PUT - works
+
+{
+    "email": "789@gmail.com"
+}
+
+
+
+
+###
+
+DELETE  http://localhost:8081/suppliers/64a0183dd2a5a8d72d6f8d09
+
+
