@@ -21,6 +21,15 @@ const getBranch = async (req,res) => {
 }
 
 
+const getBranchesByName = async(res,req) =>{
+  const products = await Branchservice.getBranchesByName(req.params.name);
+  if (!products){
+    return res.status(404).json({errors:['No branches are found with this name']});
+  }
+  res.json(products);
+  }
+  
+
 
 const updateBranch = async (req,res) => {
   const {name, address}  = req.body
@@ -44,6 +53,7 @@ module.exports = {
     createBranch,
     getBranches,
     getBranch,
+    getBranchesByName,
     updateBranch,
     deleteBranch
 }

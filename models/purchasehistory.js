@@ -9,7 +9,7 @@ const purchaseHistory = new Schema({
     uderID: {
         type: String,
     },
-    historyproductList: [
+    productList: [
         {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Product'
@@ -18,5 +18,4 @@ const purchaseHistory = new Schema({
     }
     );
 
-//exporting it to controler 
 module.exports = mongoose.model('purchasehistory',purchaseHistory)

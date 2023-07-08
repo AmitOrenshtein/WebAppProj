@@ -1,0 +1,69 @@
+GET http://localhost:8081/purchasehistorys/
+
+###
+
+GET http://localhost:8081/purchasehistorys/64a8fe80429f9a5b8b54fa2f
+
+###
+
+
+GET http://localhost:8081/purchasehistorys/userID/userID
+
+###
+
+
+POST http://localhost:8081/purchasehistorys/
+Content-Type: application/json
+//full POST - works
+
+{
+    "userID":"123",
+    "productList":"456"
+}
+
+
+###
+
+
+POST http://localhost:8081/users/
+Content-Type: application/json
+//partial POST - works
+
+{
+    "userID":"123"
+
+}
+
+
+###
+
+
+PUT http://localhost:8081/users/64a01d791e54b4812186ace7
+Content-Type: application/json
+//Accept: application/json
+//Full PUT - works
+
+{
+    "userID":"123",
+    "productList":"XXX"
+}
+
+###
+
+//TODO change user product list
+
+PUT http://localhost:8081/users/64a01d791e54b4812186ace7
+Content-Type: application/json
+//Partial PUT - works
+
+{
+    "userID": "456"
+}
+
+
+
+
+###
+
+DELETE  http://localhost:8081/purchasehistorys/ID
+

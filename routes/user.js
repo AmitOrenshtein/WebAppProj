@@ -13,4 +13,8 @@ userRouter.route('/:id')
     .delete(usersController.deleteUser)
 //TODO get user shopping cart
 
+userRouter.route('/username/:username')
+    .get(usersController.getUserByName)
+
+
 module.exports = userRouter;

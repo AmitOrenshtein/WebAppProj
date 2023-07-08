@@ -31,12 +31,36 @@ const getProducts = async() =>{
 }
 
 const getProductsByCategory = async(searchedCategory) =>{
-    return (await Product.find({category : "football"}));
-
+    let result = await Product.find({category : searchedCategory});
+    console.log(result);
+    return (result);
     //TODO make this work including the multiple GET commands 
 }
 
+const getProductsByBrand = async(searchedBrand) =>{
+    let result = await Product.find({brand : searchedBrand});
+    //console.log(result);
+    return (result);
+    //TODO make this work including the multiple GET commands 
+}
 
+const getProductsByPrice = async(minPrice, maxPrice) =>{
+    let result = await Product.find({price : {$range : [minPrice ,maxPrice]}});
+    //console.log(result);
+    return (result);
+    //TODO make this work including the multiple GET commands 
+}
+/* This is test function just to search by number
+const getProductsByPrice = async(price) =>{
+    const pricenum = parseInt(price)
+    console.log(pricenum);
+
+    let result = await Product.find({price : pricenum});
+    //console.log(result);
+    return (result);
+    //TODO make this work including the multiple GET commands 
+}
+*/
 const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory, price) => {
     const product = await getProductById(id);
     if (!product)
@@ -90,6 +114,8 @@ module.exports = {
     getProductById,
     getProducts,
     getProductsByCategory,
+    getProductsByBrand,
+    getProductsByPrice,
     updateProduct,
     deleteProduct
 }

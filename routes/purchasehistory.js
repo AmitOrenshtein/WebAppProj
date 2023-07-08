@@ -1,16 +1,21 @@
 const express = require('express');
 const purchasehistoryRouter = express.Router();
 
-const purchasehistorysController = require('../controllers/purchasehistory')
+const purchasehistoryController = require('../controllers/purchasehistory')
+
 
 purchasehistoryRouter.route('/')
-    .get(purchasehistorysController.getPurchasehistorys)
-    .post(purchasehistorysController.createPurchasehistory)
+    .get(purchasehistoryController.getPurchasehistorys)
+    .post(purchasehistoryController.createPurchasehistory)
+
+purchasehistoryRouter.route('/UserID/:UserID')
+    .get(purchasehistoryController.getpurchasehistoryByUserID)
+
 
 purchasehistoryRouter.route('/:id')
-    .get(purchasehistorysController.getPurchasehistory)
-    .put(purchasehistorysController.updatePurchasehistory)
-    .delete(purchasehistorysController.deletePurchasehistory)
-//TODO get purchasehistory product list that works with GET
+    .get(purchasehistoryController.getPurchasehistory)
+    .put(purchasehistoryController.updatePurchasehistory)
+    .delete(purchasehistoryController.deletePurchasehistory)
 
-module.exports = purchasehistoryRouter;
+module.exports = purchasehistoryRouter
+

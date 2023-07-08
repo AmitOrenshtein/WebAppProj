@@ -8,7 +8,21 @@ GET http://localhost:8081/products/64a017302991751855bbb2cb
 ###
 
 
-GET http://localhost:8081/products/abc
+GET http://localhost:8081/products/category/football
+
+
+###
+
+
+GET http://localhost:8081/products/brand/adidas
+
+
+###
+
+
+
+GET http://localhost:8081/products/price/100
+
 
 
 ###
@@ -47,13 +61,13 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:8081/products/64a017302991751855bbb2cb
+PUT http://localhost:8081/products/649fc35bcb38b032dd949f8a
 Content-Type: application/json
 //Accept: application/json
 //Full PUT - works
 
 {
-    "name": "new name test",
+    "name": "new name for search",
     "image": "image test",
     "video": "video test",
     "brand": "brand test",

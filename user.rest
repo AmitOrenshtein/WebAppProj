@@ -4,6 +4,10 @@ GET http://localhost:8081/users/
 
 GET http://localhost:8081/users/64a01d791e54b4812186ace7
 
+###
+
+
+GET http://localhost:8081/users/username/user
 
 ###
 

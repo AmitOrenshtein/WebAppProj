@@ -1,50 +1,58 @@
-const PurchaseHistoryservice = require('../services/purchasehistory')
+const purchasehistoryservice = require('../services/purchasehistory')
 
-const createPurchaseHistory = async (req,res) => {
-  const {userID,historyListofProducts}  = req.body
-  const newPurchaseHistory = await PurchaseHistoryservice.createPurchaseHistory(userID,historyListofProducts);
-  res.json(newPurchaseHistory)
-}
-
-
-const getPurchaseHistorys = async (req,res) => {
-  const PurchaseHistorys = await PurchaseHistoryservice.getPurchaseHistorys();
-  res.json(PurchaseHistorys);
-}
-
-const getPurchaseHistory = async (req,res) => {
-  const purchasehistory = await PurchaseHistoryservice.getPurchaseHistoryById(req.params.id);
-  if (!purchasehistory){
-    return res.status(404).json({errors:['PurchaseHistory not found']});
+const createPurchasehistory = async (req,res) => {
+    const {userID, productList}  = req.body
+    const newPurchasehistory = await purchasehistoryservice.createPurchasehistory(userID, productList);
+    res.json(newPurchasehistory)
   }
-  res.json(purchasehistory);
-}
-
-//TODO get purchasehistory product list
-
-
-const updatePurchaseHistory = async (req,res) => {
-  const {name,purchasehistoryList, email}  = req.body
-  const purchasehistory = await PurchaseHistoryservice.updatePurchaseHistory(req.params.id,userID, historyListofProducts);
-  if (!purchasehistory){
-    return res.status(404).json({errors:['PurchaseHistory not found']});
+  
+  
+  const getPurchasehistorys = async (req,res) => {
+    const Purchasehistorys = await purchasehistoryservice.getPurchasehistorys();
+    res.json(Purchasehistorys);
   }
-  res.json(purchasehistory);
-};
 
-
-const deletePurchaseHistory = async (req,res) => {
-  const purchasehistory = await PurchaseHistoryservice.deletePurchaseHistory(req.params.id);
-  if (!purchasehistory){
-    return res.status(404).json({errors:['PurchaseHistory not found']});
+  const getPurchasehistory = async (req,res) => {
+    const purchasehistory = await purchasehistoryservice.getPurchasehistoryById(req.params.id);
+    if (!purchasehistory){
+      return res.status(404).json({errors:['purchase history not found']});
+    }
+    res.json(purchasehistory);
   }
-  res.send();
-}
 
-module.exports = {
-    createPurchaseHistory,
-    getPurchaseHistorys,
-    getPurchaseHistory,
-    updatePurchaseHistory,
-    deletePurchaseHistory
+  const getpurchasehistoryByUserID = async(res,req) =>{
+    const purchasehistory = await purchasehistoryservice.getpurchasehistoryByUserID(req.params.userID);
+    if (!purchasehistory){
+      return res.status(404).json({errors:['No purchase historys are found for this user']});
+    }
+    res.json(purchasehistory);
+    }
+  
+    const updatePurchasehistory = async (req,res) => {
+        const {userID, productList}  = req.body
+        const purchasehistory = await purchasehistoryservice.updatePurchasehistory(req.params.id,userID, productList);
+        if (!purchasehistory){
+          return res.status(404).json({errors:['purchasehistory not found']});
+        }
+        res.json(purchasehistory);
+      };
+      
+      
+      const deletePurchasehistory = async (req,res) => {
+        const purchasehistory = await purchasehistoryservice.deletePurchasehistory(req.params.id);
+        if (!purchasehistory){
+          return res.status(404).json({errors:['purchasehistory not found']});
+        }
+        res.send();
+      }
+      
+  
+
+  module.exports = {
+    createPurchasehistory,
+    getPurchasehistorys,
+    getPurchasehistory,
+    getpurchasehistoryByUserID,
+    updatePurchasehistory,
+    deletePurchasehistory
 }

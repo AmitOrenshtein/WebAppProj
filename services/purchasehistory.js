@@ -1,11 +1,12 @@
 const Purchasehistory = require('../models/purchasehistory')
 
-const createPurchasehistory = async (userID, historyproductList) => {
+
+const createPurchasehistory = async (userID, productList) => {
     const purchasehistory = new Purchasehistory(
             {
                 userID:userID,
-                historyproductList:historyproductList
-                //TODO: create purchasehistory list
+                productList:productList
+                //TODO initiate create list functions in cart model
             });
     return await purchasehistory.save()
 }
@@ -18,9 +19,14 @@ const getPurchasehistorys = async() =>{
     return await Purchasehistory.find({})
 }
 
-//TODO get purchasehistory product list like in supplier
+const getPurchasehistoryesByUsername = async(searchUsername) =>{
+    let result = await Purchasehistory.find({Username : {$regex : searchUsername , $options : "i"}});
+    console.log(result);
+    return (result);
+}
 
-const updatePurchasehistory = async (id, userID, historyListOfProducts) => {
+//TODO - make this function blocked? maybe we want it imutable 
+const updatePurchasehistory = async (id,userID, prodcutList) => {
     const purchasehistory = await getPurchasehistoryById(id);
     if (!purchasehistory)
         return null;
@@ -28,10 +34,10 @@ const updatePurchasehistory = async (id, userID, historyListOfProducts) => {
         purchasehistory.userID = purchasehistory.userID;
     else  
         purchasehistory.userID = userID;
-    if(!historyListOfProducts)
-        purchasehistory.historyListOfProducts = purchasehistory.historyListOfProducts;
+    if(!prodcutList)
+        purchasehistory.prodcutList = purchasehistory.prodcutList;
     else
-        purchasehistory.historyListOfProducts = historyListOfProducts;
+        purchasehistory.prodcutList = prodcutList;
     await purchasehistory.save();
     return purchasehistory;
 }
@@ -47,6 +53,7 @@ const deletePurchasehistory = async (id) => {
 module.exports = {
     createPurchasehistory,
     getPurchasehistoryById,
+    getPurchasehistoryesByUsername,
     getPurchasehistorys,
     updatePurchasehistory,
     deletePurchasehistory

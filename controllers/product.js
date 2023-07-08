@@ -1,8 +1,8 @@
 const Productservice = require('../services/product')
 
 const createProduct = async (req,res) => {
-  const {name,image, video, brand, descrpition, category, amountInInventory, price}  = req.body
-  const newProduct = await Productservice.createProduct(name,image,video,brand,descrpition,category,amountInInventory, price);
+  const {name,image, video, brand, descrpition, category, amountInInventory,supplier, price}  = req.body
+  const newProduct = await Productservice.createProduct(name,image,video,brand,descrpition,category,amountInInventory,supplier, price);
   res.json(newProduct)
 }
 
@@ -29,11 +29,25 @@ const getProductsByCategory = async(res,req) =>{
   res.json(products);
 }
 
-//TODO - make it work with only specific paremeters inserted
-const updateProduct = async (req,res) => {
- 
+const getProductsByBrand = async(res,req) =>{
+const products = await Productservice.getProductsByBrand(req.params.brand);
+if (!products){
+  return res.status(404).json({errors:['No products are found in this brand']});
+}
+res.json(products);
+}
 
-  //TODO: make it work with only specific paremeters inserted
+
+const getProductsByPrice = async(res,req) =>{
+  const products = await Productservice.getProductsByPrice(req.params.price);
+  if (!products){
+    return res.status(404).json({errors:['No products are found in this price range']});
+  }
+  res.json(products);
+  }
+
+const updateProduct = async (req,res) => {
+   //TODO: make it work with only specific paremeters inserted
   const {name,image, video, brand, descrpition, category, amountInInventory,supplier,price}  = req.body
   const product = await Productservice.updateProduct(req.params.id, name, image, video, brand, descrpition, category, amountInInventory, supplier,price);
   if (!product){
@@ -56,6 +70,8 @@ module.exports = {
     getProducts,
     getProduct,
     getProductsByCategory,
+    getProductsByPrice,
+    getProductsByBrand,
     updateProduct,
     deleteProduct
 }
