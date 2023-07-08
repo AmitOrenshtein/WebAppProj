@@ -11,6 +11,8 @@ purchasehistoryRouter.route('/')
 purchasehistoryRouter.route('/UserID/:UserID')
     .get(purchasehistoryController.getpurchasehistoryByUserID)
 
+purchasehistoryRouter.route("/loggedUser")
+    .get(purchasehistoryController.getPurchaseHistoryByLoggedUser);
 
 purchasehistoryRouter.route('/salesbycategory') 
     .get(purchasehistoryController.getSalesByCategory)

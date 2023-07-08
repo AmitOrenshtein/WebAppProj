@@ -7,6 +7,7 @@ const users = require('./routes/user');
 const branches = require('./routes/branch');
 const login = require("./routes/login");
 const shoppingCart = require("./routes/shoppingCart");
+const purchaseHistory = require("./routes/purchasehistory");
 
 const newLocal = require('custom-env')
 newLocal.env("test",'./config');
@@ -33,5 +34,6 @@ app.use('/users', users);
 app.use('/branches', branches);
 app.use("/login", login);
 app.use("/shoppingcart/", shoppingCart);
+app.use("/purchasehistory", purchaseHistory);
 
 app.listen(process.env.PORT,()=>{console.log("Listening to port")});

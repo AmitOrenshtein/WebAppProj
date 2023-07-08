@@ -21,6 +21,18 @@ const createPurchasehistory = async (req,res) => {
     res.json(purchasehistory);
   }
 
+  const getPurchaseHistoryByLoggedUser = async(req,res) => {
+    let userId;
+    if(!req.session || !req.session.loggedUser) {
+        return res.status(400).json({errors:['User is not logged in!']});
+    } else {
+        userId = req.session.loggedUser.id;
+        console.log("get history for: " + userId);
+        const purchasehistory = await purchasehistoryservice.getpurchasehistoryByUserID(userId);
+        res.json(purchasehistory);
+    }
+  }
+
   const getpurchasehistoryByUserID = async(req,res) =>{
     const purchasehistory = await purchasehistoryservice.getpurchasehistoryByUserID(req.params.userID);
     if (!purchasehistory){
@@ -62,6 +74,7 @@ const createPurchasehistory = async (req,res) => {
     createPurchasehistory,
     getPurchasehistorys,
     getPurchasehistory,
+    getPurchaseHistoryByLoggedUser,
     getpurchasehistoryByUserID,
     updatePurchasehistory,
     getSalesByCategory,

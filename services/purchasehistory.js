@@ -25,6 +25,11 @@ const getPurchasehistorys = async() =>{
     return await Purchasehistory.find({})
 }
 
+const getpurchasehistoryByUserID = async(searchUserId) =>{
+    let result = await Purchasehistory.find({userID : searchUserId});
+    return (result);
+}
+
 const getPurchasehistoryesByUsername = async(searchUsername) =>{
     let result = await Purchasehistory.find({Username : {$regex : searchUsername , $options : "i"}});
     console.log(result);
@@ -97,6 +102,7 @@ const deletePurchasehistory = async (id) => {
 module.exports = {
     createPurchasehistory,
     getPurchasehistoryById,
+    getpurchasehistoryByUserID,
     getPurchasehistoryesByUsername,
     getPurchasehistorys,
     updatePurchasehistory,

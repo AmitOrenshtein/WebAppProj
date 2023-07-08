@@ -6,13 +6,13 @@ async function login(req, res) {
     if (user) {
         console.log("logged in to user: " + username);
         req.session.loggedUser = {
-            id: user._id,
+            id: user._id.toString(),
             username: user.username
         };
         res.redirect('/');
     }
     else {
-        console.log("incorrect!");
+        console.log("incorrect login request!");
         res.redirect('/login?error=1');
     }
 }
