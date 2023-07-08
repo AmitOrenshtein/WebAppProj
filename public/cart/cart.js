@@ -46,3 +46,11 @@ function removeFromCart(cartIndex) {
         }
     });
 }
+
+function checkoutClick() {
+    if(loggedUser) {
+        window.location.href='/checkout';
+    } else {
+        $("#notLogged").removeClass("hidden");
+    }
+}

@@ -6,7 +6,7 @@ const productservice = require('../services/product')
 
 const createPurchasehistory = async (userID, productList) => {
     //assuming we recieve JS obecjts and we need to extract the ID
-    const productIDs = productList.array.map((currproduct)=>{return(currproduct.id)})
+    const productIDs = productList.map((currproduct)=>{return(currproduct.id)});
     const purchasehistory = new Purchasehistory(
         {
             userID:userID,
@@ -26,6 +26,7 @@ const getPurchasehistorys = async() =>{
 }
 
 const getpurchasehistoryByUserID = async(searchUserId) =>{
+    // TODO: need this function to get the products data (price, name and image) and not only ID
     let result = await Purchasehistory.find({userID : searchUserId});
     return (result);
 }
