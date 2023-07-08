@@ -9,6 +9,9 @@ const purchaseHistory = new Schema({
     uderID: {
         type: String,
     },
+    purchaseDate :{
+        type: Date,
+    },
     productList: [
         {
           type: mongoose.Schema.Types.ObjectId,

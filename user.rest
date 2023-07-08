@@ -2,7 +2,7 @@ GET http://localhost:8081/users/
 
 ###
 
-GET http://localhost:8081/users/64a01d791e54b4812186ace7
+GET http://localhost:8081/users/64a943893a06f7af153dab7f
 
 ###
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 //full POST - works
 
 {
-    "username":"usertestnumber2",
+    #"username" : "double test",
     "password":"1234567890",
     "userType":"regular",
     "deliveryAdress": "Allenby 100"

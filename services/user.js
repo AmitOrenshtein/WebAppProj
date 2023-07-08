@@ -11,7 +11,11 @@ const createUser = async (username, password, shoppingCart, deliveryAdress, user
                 shoppingCart:shoppingCart
                 //TODO: create refernce to shopping cart
             });
-    return await user.save()
+    customeResponse = await user.save()
+    .then(()=> true)
+    .catch((err)=> {console.log(err._message)
+    return false})
+    return customeResponse
 }
 
 

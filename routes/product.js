@@ -10,13 +10,19 @@ productRouter.route('/')
 productRouter.route('/category/:category')
     .get(productsController.getProductsByCategory)
 
+productRouter.route('/groupproductsbycat/:category')
+    .get(productsController.groupProductsByCategory)
+
+productRouter.route('/groupproductsbybrand/:category')
+    .get(productsController.groupProductsByBrand)
+
+
 productRouter.route('/brand/:brand')
     .get(productsController.getProductsByBrand)
-    
-/*
-productRouter.route('/price/:price')
+
+
+productRouter.route('/price/:minprice/:maxprice')
     .get(productsController.getProductsByPrice)
-*/
 
 productRouter.route('/:id')
     .get(productsController.getProduct)

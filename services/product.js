@@ -44,23 +44,35 @@ const getProductsByBrand = async(searchedBrand) =>{
     //TODO make this work including the multiple GET commands 
 }
 
-const getProductsByPrice = async(minPrice, maxPrice) =>{
-    let result = await Product.find({price : {$range : [minPrice ,maxPrice]}});
-    //console.log(result);
+const getProductsByPrice = async(minprice, maxprice) =>{
+    let result = await Product.find({price : {$gte :minprice , $lte: maxprice}});
+    console.log("inserive:", result);
     return (result);
     //TODO make this work including the multiple GET commands 
 }
-/* This is test function just to search by number
-const getProductsByPrice = async(price) =>{
-    const pricenum = parseInt(price)
-    console.log(pricenum);
 
+/*
+// This is a test function just to search by number
+const getProductsByPrice = async(searchprice) =>{
+    const pricenum = Number(searchprice)
+    console.log(pricenum);
     let result = await Product.find({price : pricenum});
-    //console.log(result);
+    console.log(result);
     return (result);
-    //TODO make this work including the multiple GET commands 
 }
 */
+
+const groupProductsByCategory = async(category) =>{
+    //console.log("groupBy service activated")
+    let result = await Product.aggregate([ {$group: {_id:{category: "$category"} }}]);
+    return (result);
+}
+
+const groupProductsByBrand = async(brand) =>{
+    //console.log("groupBy service activated")
+    let result = await Product.aggregate([ {$group: {_id:{brand: "$brand"} }}]);
+    return (result);
+}
 const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory, price) => {
     const product = await getProductById(id);
     if (!product)
@@ -117,5 +129,7 @@ module.exports = {
     getProductsByBrand,
     getProductsByPrice,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    groupProductsByBrand,
+    groupProductsByCategory
 }

@@ -21,7 +21,7 @@ const getBranch = async (req,res) => {
 }
 
 
-const getBranchesByName = async(res,req) =>{
+const getBranchesByName = async(req,res) =>{
   const products = await Branchservice.getBranchesByName(req.params.name);
   if (!products){
     return res.status(404).json({errors:['No branches are found with this name']});

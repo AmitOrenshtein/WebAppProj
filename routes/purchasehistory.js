@@ -12,6 +12,12 @@ purchasehistoryRouter.route('/UserID/:UserID')
     .get(purchasehistoryController.getpurchasehistoryByUserID)
 
 
+purchasehistoryRouter.route('/salesbycategory') 
+    .get(purchasehistoryController.getSalesByCategory)
+
+purchasehistoryRouter.route('/salesbydate') 
+    .get(purchasehistoryController.getSalesByDate)
+
 purchasehistoryRouter.route('/:id')
     .get(purchasehistoryController.getPurchasehistory)
     .put(purchasehistoryController.updatePurchasehistory)

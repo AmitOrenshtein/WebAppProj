@@ -21,7 +21,7 @@ const getProduct = async (req,res) => {
 }
 
 
-const getProductsByCategory = async(res,req) =>{
+const getProductsByCategory = async(req,res) =>{
   const products = await Productservice.getProductsByCategory(req.params.category);
   if (!products){
     return res.status(404).json({errors:['No products are found in this category']});
@@ -29,7 +29,7 @@ const getProductsByCategory = async(res,req) =>{
   res.json(products);
 }
 
-const getProductsByBrand = async(res,req) =>{
+const getProductsByBrand = async(req,res) =>{
 const products = await Productservice.getProductsByBrand(req.params.brand);
 if (!products){
   return res.status(404).json({errors:['No products are found in this brand']});
@@ -38,13 +38,35 @@ res.json(products);
 }
 
 
-const getProductsByPrice = async(res,req) =>{
-  const products = await Productservice.getProductsByPrice(req.params.price);
+const getProductsByPrice = async(req,res) =>{
+  const {minprice,maxprice} = req.params
+  console.log(minprice,maxprice)
+  
+  const products = await Productservice.getProductsByPrice(minprice,maxprice);
   if (!products){
     return res.status(404).json({errors:['No products are found in this price range']});
   }
   res.json(products);
   }
+
+  const groupProductsByCategory = async(req,res) =>{
+    //console.log("groupBy controller activated")
+    const products = await Productservice.groupProductsByCategory(req.params.category);
+    if(!products){
+      return res.status(404).json({errors:['No products are found in this category']});
+    }
+    res.json(products);
+  }
+
+  const groupProductsByBrand = async(req,res) =>{
+    //console.log("groupBy controller activated")
+    const products = await Productservice.groupProductsByBrand(req.params.brand);
+    if(!products){
+      return res.status(404).json({errors:['No products are found in this brand']});
+    }
+    res.json(products);
+  }
+
 
 const updateProduct = async (req,res) => {
    //TODO: make it work with only specific paremeters inserted
@@ -73,5 +95,7 @@ module.exports = {
     getProductsByPrice,
     getProductsByBrand,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    groupProductsByCategory,
+    groupProductsByBrand
 }

@@ -14,6 +14,21 @@ GET http://localhost:8081/products/category/football
 ###
 
 
+
+GET http://localhost:8081/products/groupproductsbycat/football
+
+
+###
+
+
+
+
+GET http://localhost:8081/products/groupproductsbybrand/adidas
+
+
+###
+
+
 GET http://localhost:8081/products/brand/adidas
 
 
@@ -21,7 +36,7 @@ GET http://localhost:8081/products/brand/adidas
 
 
 
-GET http://localhost:8081/products/price/100
+GET http://localhost:8081/products/price/50/100
 
 
 
