@@ -31,6 +31,22 @@ const getPurchasehistoryesByUsername = async(searchUsername) =>{
     return (result);
 }
 
+const getPurchasehistoryByUserID = async(searchUserID) =>{
+    let result = await Purchasehistory.find({userID : searchUserID})
+    return (result)
+}
+
+const getPurchasehistoryDetails = async(searchUserID) =>{
+    currHistory = getPurchasehistoryByUserID(searchUserID);
+    var productDetalis = {};
+    curreHistory.array.forEach(currproduct => {
+        productDetalis[currproduct.id, "id"] = currproduct.id;
+        productDetalis[currproduct.id, "name"] = currproduct.name;
+        productDetalis[currproduct.id, "price"] = currproduct.price;
+        productDetalis[currproduct.id, "image"] = currproduct.image;
+    })
+    return (productDetalis);
+}
 
 //for graph
 const getSalesByCategory = async() =>{
@@ -103,5 +119,7 @@ module.exports = {
     getSalesByCategory,
     countByCategory,
     getSalesByDate,
+    getPurchasehistoryByUserID,
+    getPurchasehistoryDetails,
     deletePurchasehistory
 }

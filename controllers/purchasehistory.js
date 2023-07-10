@@ -29,6 +29,15 @@ const createPurchasehistory = async (req,res) => {
     res.json(purchasehistory);
     }
 
+    const getPurchasehistoryDetails = async(req,res)=>{
+      const purchasehistoryDetails = await purchasehistoryservice.getPurchasehistoryDetails(req.params.userID)
+      if (!purchasehistoryDetails){
+          return res.status(404).json({errors:['No purchase historys are found for this user']});
+      }
+      res.json(purchasehistoryDetails);
+
+    }
+
   const getSalesByCategory = async(req,res) =>{
       const salesByCategory = await purchasehistoryservice.getSalesByCategory();
       res.json(salesByCategory);
@@ -66,5 +75,6 @@ const createPurchasehistory = async (req,res) => {
     updatePurchasehistory,
     getSalesByCategory,
     getSalesByDate,
+    getPurchasehistoryDetails,
     deletePurchasehistory
 }
