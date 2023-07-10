@@ -6,6 +6,15 @@ const createBranch = async (req,res) => {
   res.json(newBranch)
 }
 
+const getBranchesByWS = async (connection, data) => {
+  let result = {};
+  if (data === "") {
+    result = await Branchservice.getBranches();
+  } else {
+    result = await Branchservice.getBranchesByName(data);
+  }
+  connection.sendUTF(JSON.stringify(result));
+}
 
 const getBranches = async (req,res) => {
   const Branches = await Branchservice.getBranches();
@@ -51,6 +60,7 @@ const deleteBranch = async (req,res) => {
 
 module.exports = {
     createBranch,
+    getBranchesByWS,
     getBranches,
     getBranch,
     getBranchesByName,
