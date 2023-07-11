@@ -32,8 +32,23 @@ const getPurchasehistoryesByUsername = async(searchUsername) =>{
 }
 
 const getPurchasehistoryByUserID = async(searchUserID) =>{
+    console.log(searchUserID)
     let result = await Purchasehistory.find({userID : searchUserID})
-    return (result)
+    // console.log(result)
+    // console.log(result[0]["productList"])
+    let finalResults = await Promise.all(result.map(async currRes => {
+        const products = await Promise.all(currRes["productList"].map(async currproduct => await productservice.getProductById(currproduct)))
+    // console.log(result)
+        let currFinal = {
+            "userID" : currRes["userID"],
+            "purchaseDate" : currRes["purchaseDate"],
+            "productList" : products,
+        }
+        return currFinal
+    }))
+    
+    // console.log(finalresult)
+    return finalResults
 }
 
 const getPurchasehistoryDetails = async(searchUserID) =>{

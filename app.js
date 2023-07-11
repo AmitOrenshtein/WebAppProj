@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const products = require('./routes/product');
 const users = require('./routes/user');
 const branches = require('./routes/branch');
+const pruchasehistorys = require("./routes/purchasehistory");
 const login = require("./routes/login");
 const shoppingCart = require("./routes/shoppingCart");
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use('/products', products);
 app.use('/users', users);
 app.use('/branches', branches);
+app.use("/purchasehistory/", pruchasehistorys);
 app.use("/login", login);
 app.use("/shoppingcart/", shoppingCart);
 

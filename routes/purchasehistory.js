@@ -8,11 +8,11 @@ purchasehistoryRouter.route('/')
     .get(purchasehistoryController.getPurchasehistorys)
     .post(purchasehistoryController.createPurchasehistory)
 
-purchasehistoryRouter.route('/UserID/:UserID')
-    .get(purchasehistoryController.getpurchasehistoryByUserID)
+purchasehistoryRouter.route('/userid/:userid')
+    .get(purchasehistoryController.getPurchasehistoryByUserID)
 
-purchasehistoryRouter.route('/getpurcahsedetails/:userID') 
-    get(purchasehistoryController.getPurchasehistoryDetails)
+purchasehistoryRouter.route('/getpurcahsedetails/:userid') 
+    .get(purchasehistoryController.getPurchasehistoryDetails)
 
 purchasehistoryRouter.route('/salesbycategory') 
     .get(purchasehistoryController.getSalesByCategory)

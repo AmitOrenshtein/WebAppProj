@@ -22,7 +22,16 @@ const getProduct = async (req,res) => {
 
 
 const getProductsByCategory = async(req,res) =>{
-  const products = await Productservice.getProductsByCategory(req.params.category);
+  console.log("controller activated")
+  const searchedCategory1 = req.params["searchedCategory1"]
+  let searchedCategory2 = "paramnotrecived"
+  let searchedCategory3 = "paramnotrecived"
+  if ("searchedCategory2" in req.params)
+     searchedCategory2 = req.params["searchedCategory2"]
+  if ("searchedCategory3" in req.params)
+     searchedCategory3 = req.params["searchedCategory3"]
+  console.log("recieved categories:" ,searchedCategory1, searchedCategory2,searchedCategory3)
+  const products = await Productservice.getProductsByCategory(searchedCategory1, searchedCategory2,searchedCategory3);
   if (!products){
     return res.status(404).json({errors:['No products are found in this category']});
   }

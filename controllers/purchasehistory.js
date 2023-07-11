@@ -21,8 +21,9 @@ const createPurchasehistory = async (req,res) => {
     res.json(purchasehistory);
   }
 
-  const getpurchasehistoryByUserID = async(req,res) =>{
-    const purchasehistory = await purchasehistoryservice.getpurchasehistoryByUserID(req.params.userID);
+  const getPurchasehistoryByUserID = async(req,res) =>{
+    console.log("controller activated")
+    const purchasehistory = await purchasehistoryservice.getPurchasehistoryByUserID(req.params.userid);
     if (!purchasehistory){
       return res.status(404).json({errors:['No purchase historys are found for this user']});
     }
@@ -71,7 +72,7 @@ const createPurchasehistory = async (req,res) => {
     createPurchasehistory,
     getPurchasehistorys,
     getPurchasehistory,
-    getpurchasehistoryByUserID,
+    getPurchasehistoryByUserID,
     updatePurchasehistory,
     getSalesByCategory,
     getSalesByDate,

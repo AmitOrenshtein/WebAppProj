@@ -7,7 +7,13 @@ productRouter.route('/')
     .get(productsController.getProducts)
     .post(productsController.createProduct)
 
-productRouter.route('/category/:category')
+productRouter.route('/category/:searchedCategory1')
+    .get(productsController.getProductsByCategory)
+
+productRouter.route('/category/:searchedCategory1/:searchedCategory2')
+    .get(productsController.getProductsByCategory)
+
+productRouter.route('/category/:searchedCategory1/:searchedCategory2/:searchedCategory3')
     .get(productsController.getProductsByCategory)
 
 productRouter.route('/groupproductsbycat/:category')
