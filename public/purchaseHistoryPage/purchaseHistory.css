@@ -13,11 +13,6 @@
     object-fit: contain;
 }
 
-.prodRow {
-    border: 1px solid black;
-    margin-bottom: 4px;
-}
-
 .prodImgCol {
     padding-left: 0 !important;
     width: 100%;

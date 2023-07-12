@@ -8,7 +8,6 @@ const branches = require('./routes/branch');
 const pruchasehistorys = require("./routes/purchasehistory");
 const login = require("./routes/login");
 const shoppingCart = require("./routes/shoppingCart");
-const purchaseHistory = require("./routes/purchasehistory");
 const webSocketServer = require("./routes/websocketManager");
 
 const newLocal = require('custom-env')
@@ -37,7 +36,6 @@ app.use('/branches', branches);
 app.use("/purchasehistory/", pruchasehistorys);
 app.use("/login", login);
 app.use("/shoppingcart/", shoppingCart);
-app.use("/purchasehistory", purchaseHistory);
 
 const server = app.listen(process.env.PORT,()=>{console.log("Listening to port")});
 webSocketServer.listenToWebSocketServer(server);
