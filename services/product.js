@@ -1,4 +1,3 @@
-//const { describe } = require('node:test');
 const Product = require('../models/product')
 
 //feeding the CTOR with info
@@ -30,15 +29,40 @@ const getProductById = async(id) =>{
 const getProducts = async() =>{
     return await Product.find({})
 }
+//gets all products in category 1 and/or 2 and/or 3
+const getProductsByCategory = async(searchedCategory1, searchedCategory2, searchedCategory3) =>{
+    console.log("get categories services activated")
+    let result = await Product.find({$or: [{category: searchedCategory1}, {category: searchedCategory2} ,{category: searchedCategory3}]});
+    console.log(result);
+    return (result);
+}
 
-const getProductsByCategory = async(searchedCategory) =>{
-    return (await Product.find({category : "football"}));
-
+const getProductsByBrand = async(searchedBrand) =>{
+    let result = await Product.find({brand : searchedBrand});
+    //console.log(result);
+    return (result);
     //TODO make this work including the multiple GET commands 
 }
 
+const getProductsByPrice = async(minprice, maxprice) =>{
+    let result = await Product.find({price : {$gte :minprice , $lte: maxprice}});
+    console.log("inserive:", result);
+    return (result);
+    //TODO make this work including the multiple GET commands 
+}
 
-const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory,supplier,price) => {
+const groupProductsByCategory = async(category) =>{
+    //console.log("groupBy service activated")
+    let result = await Product.aggregate([ {$group: {_id:{category: "$category"} }}]);
+    return (result);
+}
+
+const groupProductsByBrand = async(brand) =>{
+    //console.log("groupBy service activated")
+    let result = await Product.aggregate([ {$group: {_id:{brand: "$brand"} }}]);
+    return (result);
+}
+const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory, price) => {
     const product = await getProductById(id);
     if (!product)
         return null;
@@ -70,10 +94,6 @@ const updateProduct = async (id, name,image,video,brand,description, category, a
         product.amountInInventory = product.amountInInventory;
     else
         product.amountInInventory = amountInInventory;
-    if(!supplier)
-        product.supplier = product.supplier;
-    else
-        product.supplier = supplier;
     if(!price)
         product.price = product.price;
     else
@@ -95,6 +115,10 @@ module.exports = {
     getProductById,
     getProducts,
     getProductsByCategory,
+    getProductsByBrand,
+    getProductsByPrice,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    groupProductsByBrand,
+    groupProductsByCategory
 }

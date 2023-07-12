@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/layout/layout.js"></script>
+    <link rel="stylesheet" href="/checkout/checkout.css">
+    <script src="/checkout/checkout.js"></script>
+</head>
+<body>
+<section id="header"></section>
+<section id="page-content">
+    <div class="container checkout-container">
+        <div id="checkoutMessage" class="hidden h4 my-4">
+            Thank you for purchasing
+        </div>
+        <form id="checkoutForm" >
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" name="fullName" required>
+            </div>
+            <div class="mb-3">
+                <label for="IdNumber" class="form-label">ID</label>
+                <input type="text" class="form-control" id="IdNumber" name="IdNumber" maxlength="9" required>
+            </div>
+            <div class="mb-3">
+                <label for="creditCardNumber" class="form-label">Card Number</label>
+                <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber" maxlength="16" required>
+            </div>
+            <div class="mb-3">
+                <label for="expirationDate" class="form-label">Card Expiration Date</label>
+                <input type="date" id="expirationDate" name="expirationDate" class="form-control" min="2023-01-01" max="2030-01-01" required>
+            </div>
+            <div class="mb-3">
+                <label for="cvvNumber" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvvNumber" maxlength="3" required>
+            </div>
+            <div class="invalid-feedback mb-3" id="loginValidation">
+
+            </div>
+            <button type="submit" class="btn btn-primary">Pay</button>
+        </form>
+    </div>
+</section>
+<section id="footer"></section>
+</body>
+</html>

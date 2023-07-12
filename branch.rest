@@ -8,6 +8,12 @@ GET http://localhost:8081/branches/64a393227b866816e47c8dd4
 ###
 
 
+GET http://localhost:8081/branches/name/tel
+
+
+###
+
+
 GET http://localhost:8081/
 
 

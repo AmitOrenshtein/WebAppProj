@@ -36,7 +36,10 @@
             <div id="cartContainer"></div>
             <div class="checkoutDiv">
                 <p class="h4">Total: <span id="totalPrice"></span>$</p>
-                <button class="btn btn-primary">Checkout</button>
+                <button class="btn btn-primary" onclick="checkoutClick()">Checkout</button>
+                <div class="hidden" id="notLogged">
+                    You need to <a href="/login">log in</a> before checkout!
+                </div>
             </div>
         </div>
     </div>

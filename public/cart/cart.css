@@ -39,3 +39,7 @@
 #exampleRow {
     display: none;
 }
+
+#notLogged {
+    color: red;
+}

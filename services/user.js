@@ -11,7 +11,11 @@ const createUser = async (username, password, shoppingCart, deliveryAdress, user
                 shoppingCart:shoppingCart
                 //TODO: create refernce to shopping cart
             });
-    return await user.save()
+    customeResponse = await user.save()
+    .then(()=> true)
+    .catch((err)=> {console.log(err._message)
+    return false})
+    return customeResponse
 }
 
 
@@ -25,6 +29,15 @@ const getUsers = async() =>{
 const getUserByUsernameAndPass = async (username, password) => {
     return User.findOne({username: username, password: password});
 }
+
+
+const getUserByName = async(searchName) =>{
+    let result = await User.find({username : {$regex : searchName , $options : "i"}});
+    console.log(result);
+    return (result);
+    //TODO make this work including the multiple GET commands 
+}
+
 //TODO get user product list
 
 /*
@@ -77,6 +90,7 @@ module.exports = {
     getUserById,
     getUsers,
     updateUser,
+    getUserByName,
     deleteUser,
     getUserByUsernameAndPass
 }

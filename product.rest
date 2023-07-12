@@ -8,7 +8,36 @@ GET http://localhost:8081/products/64a017302991751855bbb2cb
 ###
 
 
-GET http://localhost:8081/products?getProductsByCategory
+GET http://localhost:8081/products/category/football
+
+
+###
+
+
+
+GET http://localhost:8081/products/groupproductsbycat/football
+
+
+###
+
+
+
+
+GET http://localhost:8081/products/groupproductsbybrand/adidas
+
+
+###
+
+
+GET http://localhost:8081/products/brand/adidas
+
+
+###
+
+
+
+GET http://localhost:8081/products/price/50/100
+
 
 
 ###
@@ -26,7 +55,6 @@ Content-Type: application/json
     "amountInInventory": 6,
     "video": "https://www.youtube.com/watch?v=hvmURkVDZyI",
     "image": "https://m.media-amazon.com/images/I/71gFzfxnGIS._AC_UL600_FMwebp_QL65_.jpg",
-    "supplier": "good shoes LTD",
     "price": 100
 }
 
@@ -48,20 +76,27 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:8081/products/64a017302991751855bbb2cb
+GET http://localhost:8081/products/category/football
+Content-Type: application/json
+//category GET
+
+
+###
+
+
+PUT http://localhost:8081/products/649fc35bcb38b032dd949f8a
 Content-Type: application/json
 //Accept: application/json
 //Full PUT - works
 
 {
-    "name": "new name test",
+    "name": "new name for search",
     "image": "image test",
     "video": "video test",
     "brand": "brand test",
     "category": "category test",
     "description": "description test",
     "amountInInventory": 25,
-    "supplier": "supplier test"
 }
 
 ###

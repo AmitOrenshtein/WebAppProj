@@ -17,6 +17,12 @@ const getBranches = async() =>{
     return await Branch.find({})
 }
 
+const getBranchesByName = async(searchName) =>{
+    let result = await Branch.find({name : {$regex : searchName , $options : "i"}});
+    console.log(result);
+    return (result);
+    //TODO make this work including the multiple GET commands 
+}
 
 const updateBranch = async (id,name, address) => {
     const branch = await getBranchById(id);
@@ -45,6 +51,7 @@ const deleteBranch = async (id) => {
 module.exports = {
     createBranch,
     getBranchById,
+    getBranchesByName,
     getBranches,
     updateBranch,
     deleteBranch

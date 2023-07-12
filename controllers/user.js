@@ -20,17 +20,14 @@ const getUser = async (req,res) => {
   res.json(user);
 }
 
-//TODO get user product list
 
-/*
-const getUsersByCategory = async(res,req) =>{
-  const users = await Userservice.getUsersByCategory(req.params.category);
-  if (!users){
-    return res.status(404).json({errors:['No users are found in this category']});
+const getUserByName = async (req,res) => {
+  const user = await Userservice.getUserByName(req.params.username);
+  if (!user){
+    return res.status(404).json({errors:['User not found']});
   }
-  res.json(users);
+  res.json(user);
 }
-*/
 
 const updateUser = async (req,res) => {
   const {username, password, shoppingCart, deliveryAdress, userType}  = req.body
@@ -54,6 +51,7 @@ module.exports = {
     createUser,
     getUsers,
     getUser,
+    getUserByName,
     updateUser,
     deleteUser
 }

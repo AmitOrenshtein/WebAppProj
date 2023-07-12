@@ -2,13 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const products =require('./routes/product');
-const suppliers = require('./routes/supplier');
+const products = require('./routes/product');
 const users = require('./routes/user');
 const branches = require('./routes/branch');
+const pruchasehistorys = require("./routes/purchasehistory");
 const login = require("./routes/login");
 const shoppingCart = require("./routes/shoppingCart");
-//const purchasehistorys = require('./routes/purchasehistory');
+const webSocketServer = require("./routes/websocketManager");
 
 const newLocal = require('custom-env')
 newLocal.env("test",'./config');
@@ -31,12 +31,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
 app.use('/products', products);
-app.use('/suppliers', suppliers);
 app.use('/users', users);
 app.use('/branches', branches);
+app.use("/purchasehistory/", pruchasehistorys);
 app.use("/login", login);
-app.use("/shoppingCart/", shoppingCart);
+app.use("/shoppingcart/", shoppingCart);
 
-//app.use('/purchasehistory', purchasehistorys);
-
-app.listen(process.env.PORT,()=>{console.log("Listening to port")});
+const server = app.listen(process.env.PORT,()=>{console.log("Listening to port")});
+webSocketServer.listenToWebSocketServer(server);

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/layout/layout.js"></script>
+    <link rel="stylesheet" href="/purchaseHistoryPage/purchaseHistory.css">
+    <script src="/purchaseHistoryPage/purchaseHistory.js"></script>
+</head>
+<body>
+<section id="header"></section>
+<section id="page-content">
+    <div class="row prodRow" id="exampleProdRow">
+        <div class="col-2 col-lg-1 prodImgCol">
+            <img src="" class="prodImg" alt="...">
+        </div>
+        <div class="col-8 col-lg-9">
+            <div class="prodTitle h4 mt-2"></div>
+            <p class="h6">Price: <span class="prodPrice"></span>$</p>
+        </div>
+    </div>
+    <div class="row purchaseRow" id="examplePurchaseRow">
+        <div class="col-12 h4">
+            Date: <span class="purchaseTitle"></span>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-11 productsInPurchase">
+
+        </div>
+        <div class="col-12 h4">
+            Total: <span class="purchaseTotalPrice"></span>$
+        </div>
+    </div>
+    <div class="container my-4">
+        <div id="notLogged" class="h4 hidden">
+            You need to <a href="/login">log in</a> to see your purchase history.
+        </div>
+        <div id="logged" class="hidden">
+            <h2 class="mb-4">Purchase History</h2>
+            <div id="purchaseContainer">
+
+            </div>
+        </div>
+    </div>
+</section>
+<section id="footer"></section>
+</body>
+</html>
