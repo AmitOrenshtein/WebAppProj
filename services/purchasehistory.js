@@ -30,9 +30,9 @@ const getPurchasehistoryesByUsername = async(searchUsername) =>{
     console.log(result);
     return (result);
 }
-
+//returns all purchase historys for a user with full product info per history
 const getPurchasehistoryByUserID = async(searchUserID) =>{
-    console.log(searchUserID)
+    // console.log(searchUserID)
     let result = await Purchasehistory.find({userID : searchUserID})
     // console.log(result)
     // console.log(result[0]["productList"])
@@ -50,7 +50,7 @@ const getPurchasehistoryByUserID = async(searchUserID) =>{
     // console.log(finalresult)
     return finalResults
 }
-
+//can ignore this function
 const getPurchasehistoryDetails = async(searchUserID) =>{
     currHistory = getPurchasehistoryByUserID(searchUserID);
     var productDetalis = {};
@@ -96,8 +96,6 @@ const getSalesByDate = async() =>{
     });
     return (salesByDate)
 };
-
-
 
 
 //TODO - make this function blocked? maybe we want it imutable 
