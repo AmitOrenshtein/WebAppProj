@@ -7,9 +7,12 @@ const purchasehistoryController = require('../controllers/purchasehistory')
 purchasehistoryRouter.route('/')
     .get(purchasehistoryController.getPurchasehistorys)
     .post(purchasehistoryController.createPurchasehistory)
+//to get all purhcase historys - with returning full products - by user ID
+purchasehistoryRouter.route('/userid/:userid')
+    .get(purchasehistoryController.getPurchasehistoryByUserID)
 
-purchasehistoryRouter.route('/UserID/:UserID')
-    .get(purchasehistoryController.getpurchasehistoryByUserID)
+purchasehistoryRouter.route('/getpurcahsedetails/:userid')
+    .get(purchasehistoryController.getPurchasehistoryDetails)
 
 purchasehistoryRouter.route("/loggedUser")
     .get(purchasehistoryController.getPurchaseHistoryByLoggedUser);

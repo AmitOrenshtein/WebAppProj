@@ -6,13 +6,19 @@ const productsController = require('../controllers/product')
 productRouter.route('/')
     .get(productsController.getProducts)
     .post(productsController.createProduct)
-
-productRouter.route('/category/:category')
+//for recieving products from categroy 1
+productRouter.route('/category/:searchedCategory1')
     .get(productsController.getProductsByCategory)
-
+//for recieving products from categroy 1,2
+productRouter.route('/category/:searchedCategory1/:searchedCategory2')
+    .get(productsController.getProductsByCategory)
+//for recieving products from categroy 1,2,3
+productRouter.route('/category/:searchedCategory1/:searchedCategory2/:searchedCategory3')
+    .get(productsController.getProductsByCategory)
+//a group by query 
 productRouter.route('/groupproductsbycat/:category')
     .get(productsController.groupProductsByCategory)
-
+//a group by query 
 productRouter.route('/groupproductsbybrand/:category')
     .get(productsController.groupProductsByBrand)
 

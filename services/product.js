@@ -29,12 +29,12 @@ const getProductById = async(id) =>{
 const getProducts = async() =>{
     return await Product.find({})
 }
-
-const getProductsByCategory = async(searchedCategory) =>{
-    let result = await Product.find({category : searchedCategory});
+//gets all products in category 1 and/or 2 and/or 3
+const getProductsByCategory = async(searchedCategory1, searchedCategory2, searchedCategory3) =>{
+    console.log("get categories services activated")
+    let result = await Product.find({$or: [{category: searchedCategory1}, {category: searchedCategory2} ,{category: searchedCategory3}]});
     console.log(result);
     return (result);
-    //TODO make this work including the multiple GET commands 
 }
 
 const getProductsByBrand = async(searchedBrand) =>{
@@ -50,17 +50,6 @@ const getProductsByPrice = async(minprice, maxprice) =>{
     return (result);
     //TODO make this work including the multiple GET commands 
 }
-
-/*
-// This is a test function just to search by number
-const getProductsByPrice = async(searchprice) =>{
-    const pricenum = Number(searchprice)
-    console.log(pricenum);
-    let result = await Product.find({price : pricenum});
-    console.log(result);
-    return (result);
-}
-*/
 
 const groupProductsByCategory = async(category) =>{
     //console.log("groupBy service activated")

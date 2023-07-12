@@ -76,6 +76,14 @@ Content-Type: application/json
 ###
 
 
+GET http://localhost:8081/products/category/football
+Content-Type: application/json
+//category GET
+
+
+###
+
+
 PUT http://localhost:8081/products/649fc35bcb38b032dd949f8a
 Content-Type: application/json
 //Accept: application/json

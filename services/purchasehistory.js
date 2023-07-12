@@ -36,7 +36,38 @@ const getPurchasehistoryesByUsername = async(searchUsername) =>{
     console.log(result);
     return (result);
 }
-
+//returns all purchase historys for a user with full product info per history
+const getPurchasehistoryByUserID = async(searchUserID) =>{
+    // console.log(searchUserID)
+    let result = await Purchasehistory.find({userID : searchUserID})
+    // console.log(result)
+    // console.log(result[0]["productList"])
+    let finalResults = await Promise.all(result.map(async currRes => {
+        const products = await Promise.all(currRes["productList"].map(async currproduct => await productservice.getProductById(currproduct)))
+    // console.log(result)
+        let currFinal = {
+            "userID" : currRes["userID"],
+            "purchaseDate" : currRes["purchaseDate"],
+            "productList" : products,
+        }
+        return currFinal
+    }))
+    
+    // console.log(finalresult)
+    return finalResults
+}
+//can ignore this function
+const getPurchasehistoryDetails = async(searchUserID) =>{
+    currHistory = getPurchasehistoryByUserID(searchUserID);
+    var productDetalis = {};
+    curreHistory.array.forEach(currproduct => {
+        productDetalis[currproduct.id, "id"] = currproduct.id;
+        productDetalis[currproduct.id, "name"] = currproduct.name;
+        productDetalis[currproduct.id, "price"] = currproduct.price;
+        productDetalis[currproduct.id, "image"] = currproduct.image;
+    })
+    return (productDetalis);
+}
 
 //for graph
 const getSalesByCategory = async() =>{
@@ -71,8 +102,6 @@ const getSalesByDate = async() =>{
     });
     return (salesByDate)
 };
-
-
 
 
 //TODO - make this function blocked? maybe we want it imutable 
@@ -110,5 +139,7 @@ module.exports = {
     getSalesByCategory,
     countByCategory,
     getSalesByDate,
+    getPurchasehistoryByUserID,
+    getPurchasehistoryDetails,
     deletePurchasehistory
 }

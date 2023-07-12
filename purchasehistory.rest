@@ -1,16 +1,20 @@
-GET http://localhost:8081/purchasehistorys/
+GET http://localhost:8081/purchasehistory/
 
 ###
 
-GET http://localhost:8081/purchasehistorys/64a8fe80429f9a5b8b54fa2f
+GET http://localhost:8081/purchasehistory/64a8fe80429f9a5b8b54fa2f
 
 ###
 
 
-GET http://localhost:8081/purchasehistorys/userID/userID
+GET http://localhost:8081/purchasehistory/userid/64a6ff886730ef8b6bc139a2
 
 ###
 
+
+GET http://localhost:8081/purchasehistorys/getpurcahsedetails/usertest
+
+###
 
 POST http://localhost:8081/purchasehistorys/
 Content-Type: application/json
