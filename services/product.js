@@ -29,7 +29,7 @@ const getProductById = async(id) =>{
 const getProducts = async() =>{
     return await Product.find({})
 }
-
+//gets all products in category 1 and/or 2 and/or 3
 const getProductsByCategory = async(searchedCategory1, searchedCategory2, searchedCategory3) =>{
     console.log("get categories services activated")
     let result = await Product.find({$or: [{category: searchedCategory1}, {category: searchedCategory2} ,{category: searchedCategory3}]});

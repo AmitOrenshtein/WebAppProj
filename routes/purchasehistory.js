@@ -7,7 +7,7 @@ const purchasehistoryController = require('../controllers/purchasehistory')
 purchasehistoryRouter.route('/')
     .get(purchasehistoryController.getPurchasehistorys)
     .post(purchasehistoryController.createPurchasehistory)
-
+//to get all purhcase historys - with returning full products - by user ID
 purchasehistoryRouter.route('/userid/:userid')
     .get(purchasehistoryController.getPurchasehistoryByUserID)
 
