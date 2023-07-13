@@ -30,6 +30,9 @@ productRouter.route('/brand/:brand')
 productRouter.route('/price/:minprice/:maxprice')
     .get(productsController.getProductsByPrice)
 
+productRouter.route('/search')
+    .post(productsController.searchProducts);
+
 productRouter.route('/:id')
     .get(productsController.getProduct)
     .put(productsController.updateProduct)

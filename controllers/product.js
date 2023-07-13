@@ -96,6 +96,12 @@ const deleteProduct = async (req,res) => {
   res.send();
 }
 
+const searchProducts = async (req,res) => {
+  const {name, brand, category, supplier, minPrice, maxPrice}  = req.body;
+  const results = await Productservice.searchProducts(name, brand, category, supplier, minPrice, maxPrice);
+  res.json(results);
+}
+
 module.exports = {
     createProduct,
     getProducts,
@@ -106,5 +112,6 @@ module.exports = {
     updateProduct,
     deleteProduct,
     groupProductsByCategory,
-    groupProductsByBrand
+    groupProductsByBrand,
+    searchProducts
 }

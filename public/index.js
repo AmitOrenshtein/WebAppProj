@@ -1,48 +1,3 @@
-tempProdList = [
-    {
-        id: 1,
-        title: "temp product 1",
-        description: "This is a fake description.",
-        price: 100,
-        image: "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/u7khoqev6hy2xgsllrnb/revolution-5-mens-road-running-shoes-ZXqS6C.png"
-    },
-    {
-        id: 2,
-        title: "temp product 2",
-        description: "This is a fake description.",
-        price: 100,
-        image: "https://www.foodandwine.com/thmb/YFHihzbRtkKggVmQyU9TwwG3wyU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-patio-tables-tout-a3d7a767ec4c491b9d7613e8c3c3954a.jpg"
-    },
-    {
-        id: 3,
-        title: "temp product",
-        description: "This is a fake description.",
-        price: 100,
-        image: "https://www.foodandwine.com/thmb/YFHihzbRtkKggVmQyU9TwwG3wyU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-patio-tables-tout-a3d7a767ec4c491b9d7613e8c3c3954a.jpg"
-    },
-    {
-        id: 4,
-        title: "temp product",
-        description: "This is a fake description.",
-        price: 100,
-        image: "https://www.foodandwine.com/thmb/YFHihzbRtkKggVmQyU9TwwG3wyU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-patio-tables-tout-a3d7a767ec4c491b9d7613e8c3c3954a.jpg"
-    },
-    {
-        id: 5,
-        title: "temp product",
-        description: "This is a fake description.",
-        price: 100,
-        image: "https://www.foodandwine.com/thmb/YFHihzbRtkKggVmQyU9TwwG3wyU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-patio-tables-tout-a3d7a767ec4c491b9d7613e8c3c3954a.jpg"
-    },
-    {
-        id: 6,
-        title: "temp product",
-        description: "This is a fake description.",
-        price: 100,
-        image: "https://www.foodandwine.com/thmb/YFHihzbRtkKggVmQyU9TwwG3wyU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-patio-tables-tout-a3d7a767ec4c491b9d7613e8c3c3954a.jpg"
-    }
-];
-
 $(document).ready(function () {
     getAllProducts();
 
@@ -68,6 +23,29 @@ function search() {
     let supplier = $("#searchSupplier").val();
     let minPrice = $("#searchMinPrice").val();
     let maxPrice = $("#searchMaxPrice").val();
+    let filter = {};
+    if(searchText !== "")
+        filter.name = searchText;
+    if(category !== "none")
+        filter.category = category;
+    if(supplier !== "none")
+        filter.supplier = supplier;
+    if(minPrice !== "" && minPrice !== 0)
+        filter.minPrice = minPrice;
+    if(maxPrice !== "" && maxPrice !== 0)
+        filter.maxPrice = maxPrice;
+    $.ajax({
+        type: "POST",
+        url:"http://localhost:80/products/search",
+        data: filter,
+        success: function(data){
+            console.log(data);
+            showProducts(data);
+        },
+        error: function (XMLHttpRequest, textStatus, error) {
+            alert("Error while purchasing! message: " + XMLHttpRequest.responseText);
+        }
+    });
     // todo: Send to server with params and get products
 }
 
