@@ -110,6 +110,28 @@ const deleteProduct = async (id) => {
     return product;
 }
 
+const searchProducts = async (name, brand, category, supplier, minPrice, maxPrice) => {
+    let filter = {};
+    if(name)
+        filter.name = {$regex : name , $options : "i"};
+    if(brand)
+        filter.brand = {$regex : name , $options : "i"};
+    if(category)
+        filter.category = category;
+    if(supplier)
+        filter.supplier = supplier;
+
+    if(minPrice && maxPrice)
+        filter.price = {$gte :minPrice , $lte: maxPrice};
+    else if (minPrice)
+        filter.price = {$gte :minPrice};
+    else if(maxPrice)
+        filter.price = {$lte :maxPrice};
+
+    let result = await Product.find(filter);
+    return result;
+}
+
 module.exports = {
     createProduct,
     getProductById,
@@ -120,5 +142,6 @@ module.exports = {
     updateProduct,
     deleteProduct,
     groupProductsByBrand,
-    groupProductsByCategory
+    groupProductsByCategory,
+    searchProducts
 }
