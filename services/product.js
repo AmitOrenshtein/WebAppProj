@@ -67,11 +67,13 @@ const groupProductsByBrand = async(brand) =>{
     let result = await Product.aggregate([ {$group: {_id:{brand: "$brand"} }}]);
     return (result);
 }
-const updateProduct = async (id, name,image,video,brand,description, category, price, amountInInventory) => {
-    const product = await getProductById(id);
-
+const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory, price) => {
+    const product = await getProductById(id).catch(error =>false)
+    // .log("Product in service:",product )
+    // console.log("service price recieved is:",price )
+    // console.log("service amount recieved is:",amountInInventory )
     if (!product)
-        return null;
+        return "Product not found";
     if(!name)
         product.name = product.name;
     else  
@@ -104,8 +106,12 @@ const updateProduct = async (id, name,image,video,brand,description, category, p
         product.price = product.price;
     else
         product.price = price;
-    await product.save();
-    return product;
+    customeResponse = await product.save()
+    .then(()=> true)
+    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
+    return "invalid input, please note your required fields, types & spaces"})
+    return customeResponse
+
 }
 
 const deleteProduct = async (id) => {

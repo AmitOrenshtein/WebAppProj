@@ -48,7 +48,7 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:80/branches/64a393227b866816e47c8dd4
+PUT http://localhost:80/branches/64b1126496f4c8f7596c4e67
 Content-Type: application/json
 //Accept: application/json
 //Full PUT - works
@@ -62,13 +62,13 @@ Content-Type: application/json
 
 //TODO change branch product list
 
-PUT http://localhost:80/branches/64a393227b866816e47c8dd4
+PUT http://localhost:80/branches/64b1126496f4c8f7596c4e67
 Content-Type: application/json
 //Accept: application/json
 //Partial PUT - works
 
 {
-    "name": "Tel aviv center new"
+    "name": 12
 }
 
 

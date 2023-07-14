@@ -1,8 +1,8 @@
-GET http://localhost:80/users/
+GET http://localhost:80/as/
 
 ###
 
-GET http://localhost:80/users/64a943893a06f7af153dab7f
+GET http://localhost:80/users/64b11618ed57dfe58471e4c0
 
 ###
 
@@ -47,16 +47,13 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:80/users/64a01d791e54b4812186ace7
+PUT http://localhost:80/users/64b11618ed57dfe58471e4c0
 Content-Type: application/json
 //Accept: application/json
 //Full PUT - works
 
 {
-    "username":"usertestnumber2 new name",
-    "password":"1234567890newpass",
-    "userType":"regular",
-    "deliveryAdress": "Allenby 200"
+    "username":"Ytal"
 }
 
 ###

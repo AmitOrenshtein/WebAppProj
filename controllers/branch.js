@@ -43,8 +43,8 @@ const getBranchesByName = async(req,res) =>{
 const updateBranch = async (req,res) => {
   const {name, address}  = req.body
   const branch = await Branchservice.updateBranch(req.params.id,name, address);
-  if (!branch){
-    return res.status(404).json({errors:['Branch not found']});
+  if (branch !== true){
+    return res.status(404).json({errors:[branch]});
   }
   res.json(branch);
 };

@@ -1,8 +1,8 @@
-GET http://localhost:80/products/
+GET http://localhost:80/products
 
 ###
 
-GET http://localhost:80/products/64a017302991751855bbb2cb
+GET http://localhost:80/products/64b108ad95ed956a5c14e0e3
 
 
 ###
@@ -84,13 +84,14 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:80/products/64b0fc8aa6010202cd0ecfa0
+PUT http://localhost:80/products/64b1091395ed956a5c14e0e6
 Content-Type: application/json
 //Accept: application/json
 
 
 {
-    "name" : "Ronaldo"
+    "amountInInventory" : 21,
+    "price" : 250
 }
 
 ###
@@ -109,6 +110,6 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:80/products/64a00b4c71050196fcfe61c3
+DELETE  http://localhost:80/products/64b108ad95ed956a5c14e0e3
 
 

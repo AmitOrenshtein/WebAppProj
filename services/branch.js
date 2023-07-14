@@ -31,9 +31,9 @@ const getBranchesByName = async(searchName) =>{
 }
 
 const updateBranch = async (id,name, address) => {
-    const branch = await getBranchById(id);
+    const branch = await getBranchById(id).catch(error =>false)
     if (!branch)
-        return null;
+        return "branch not found";
     if(!name)
         branch.name = branch.name;
     else  
@@ -42,8 +42,9 @@ const updateBranch = async (id,name, address) => {
         branch.address = branch.address;
     else
         branch.address = address;
-    await branch.save();
-    return branch;
+    let res = await branch.save()
+    .catch(error=>"Input invalid")
+    return res;
 }
 
 const deleteBranch = async (id) => {

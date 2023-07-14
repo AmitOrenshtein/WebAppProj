@@ -13,7 +13,9 @@ const getProducts = async (req,res) => {
 }
 
 const getProduct = async (req,res) => {
+  // console.log("in controller 1")
   const product = await Productservice.getProductById(req.params.id);
+  // console.log("in controller 2")
   if (!product){
     return res.status(404).json({errors:['Product not found']});
   }
@@ -78,12 +80,13 @@ const getProductsByPrice = async(req,res) =>{
 
 
 const updateProduct = async (req,res) => {
-  const {name,image, video, brand, descrpition, category, amountInInventory,supplier,price}  = req.body
-  const product = await Productservice.updateProduct(req.params.id, name, image, video, brand, descrpition, category, amountInInventory, supplier,price);
-  if (!product){
-    return res.status(404).json({errors:['Product not found']});
+  const {name,image, video, brand, descrpition, category, amountInInventory,price}  = req.body
+  // console.log("req in controller: ", req.body)
+  const product = await Productservice.updateProduct(req.params.id, name, image, video, brand, descrpition, category, amountInInventory,price);
+  if (product !== true){
+    return res.status(404).json({errors:[product]});
   }
-  console.log("controller product is:", product)
+  // console.log("controller product is:", product)
   res.json(product);
 };
 
