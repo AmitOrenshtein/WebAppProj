@@ -1,5 +1,4 @@
 
-// Initialize the Facebook SDK
 window.fbAsyncInit = function() {
     FB.init({
       appId: '632663262259623',
@@ -8,7 +7,6 @@ window.fbAsyncInit = function() {
     });
   };
   
-  // Load the Facebook SDK asynchronously
   (function(d, s, id) {
     var js,
       fjs = d.getElementsByTagName(s)[0];
@@ -23,16 +21,14 @@ window.fbAsyncInit = function() {
 
 function shareOnFacebook() {
     FB.ui(
-      {
+      { 
         method: 'share',
-        href: 'http://localhost/thanksForPurchase/', // Replace with the URL of the thanks.html page
+        href: 'http://localhost/thanksForPurchase/',
       },
       function(response) {
         if (response && !response.error_code) {
-          // Sharing was successful
           console.log('Shared on Facebook successfully!');
         } else {
-          // Sharing failed or was canceled
           console.error('Failed to share on Facebook.');
         }
       }
@@ -40,6 +36,5 @@ function shareOnFacebook() {
   }
   
   
-  // Attach the shareOnFacebook function to the button click event
   document.getElementById('facebook-share').addEventListener('click', shareOnFacebook);
   
