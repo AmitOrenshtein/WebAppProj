@@ -1,260 +1,148 @@
-// Function to handle product creation form submission
-function createProduct(event) {
-  event.preventDefault();
-  const name = document.getElementById('product-name').value;
+  $(document).ready(function() {
+    loadProducts();
+    loadSuppliers();
+    loadBranches();
+  });
 
-  // Send a request to the backend API to create the product
-  fetch('/api/products', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: name,
-      // Include other form data in the request body
-    }),
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response from the backend
-      // For example, update the product list display with the newly created product
-      fetchProducts();
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error creating product:', error);
+  function loadProducts() {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:80/products',
+      success: function(data) {
+        renderProducts(data);
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
     });
-}
-
-// Function to handle supplier creation form submission
-function createSupplier(event) {
-  event.preventDefault();
-  const name = document.getElementById('supplier-name').value;
-  // Retrieve other form data as needed
-
-  // Send a request to the backend API to create the supplier
-  fetch('/api/suppliers', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: name,
-      // Include other form data in the request body
-    }),
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response from the backend
-      // For example, update the supplier list display with the newly created supplier
-      fetchSuppliers();
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error creating supplier:', error);
+  }
+  function loadBranches() {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:80/branches',
+      success: function(data) {
+        renderBranches(data);
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
     });
-}
+  }
 
-// Function to handle branch creation form submission
-function createBranch(event) {
-  event.preventDefault();
-  const name = document.getElementById('branch-name').value;
-  // Retrieve other form data as needed
+  function renderProducts(products) {
+    var productsContainer = $('#products-container');
+    productsContainer.empty();
 
-  // Send a request to the backend API to create the branch
-  fetch('/api/branches', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: name,
-      // Include other form data in the request body
-    }),
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response from the backend
-      // For example, update the branch list display with the newly created branch
-      fetchBranches();
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error creating branch:', error);
+    for (var i = 0; i < products.length; i++) {
+      var product = products[i];
+      var productElement = $('<div class="product"></div>');
+
+      var titleElement = $('<h3 class="prodTitle"></h3>');
+      titleElement.text(product.name);
+
+      var imgElement = $('<img class="prodImg" src="">');
+      imgElement.attr('src', product.image);
+      imgElement.attr('width', '100'); 
+
+      var categoryElement = $('<p class="prodCategory"></p>');
+      categoryElement.text('Category: ' + product.category);
+
+      var supplierElement = $('<p class="prodSupplier"></p>');
+      supplierElement.text('Supplier: ' + product.supplier);
+
+      var descElement = $('<p class="prodDesc"></p>');
+      descElement.text(product.description);
+
+      var priceElement = $('<p class="prodPrice"></p>');
+      priceElement.text('Price: ' + product.price.toFixed(2));
+
+      var updateButton = $('<button class="updateBtn">Update</button>');
+      updateButton.data('id', product.id);
+
+      var deleteButton = $('<button class="deleteBtn">Delete</button>');
+      deleteButton.data('id', product.id);
+
+      productElement.append(titleElement);
+      productElement.append(imgElement);
+      productElement.append(categoryElement);
+      productElement.append(supplierElement);
+      productElement.append(descElement);
+      productElement.append(priceElement);
+      productElement.append(updateButton);
+      productElement.append(deleteButton);
+
+      productsContainer.append(productElement);
+    }
+
+    productsContainer.on('click', '.updateBtn', function() {
+      var productId = $(this).data('id');
+      updateProduct(productId);
     });
-}
 
-// Function to handle product deletion
-function deleteProduct(productId) {
-  // Send a request to the backend API to delete the product
-  fetch(`/api/products/${productId}`, {
-    method: 'DELETE',
-  })
-    .then(response => {
-      // Handle the response from the backend
-      // For example, update the product list display after deletion
-      fetchProducts();
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error deleting product:', error);
+    productsContainer.on('click', '.deleteBtn', function() {
+      var productId = $(this).data('id');
+      deleteProduct(productId);
     });
-}
+  }
 
-// Function to handle product update
-function updateProduct(productId, newName) {
-  // Send a request to the backend API to update the product
-  fetch(`/api/products/${productId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: newName,
-      // Include other updated fields in the request body
-    }),
-  })
-    .then(response => {
-      // Handle the response from the backend
-      // For example, update the product list display after update
-      fetchProducts();
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error updating product:', error);
+  function updateProduct(productId) {
+    var updatedProduct = {};
+
+    updatedProduct.name = prompt('Enter the updated product name:');
+    updatedProduct.category = prompt('Enter the updated product category:');
+    updatedProduct.price = prompt('Enter the updated product price:');
+
+    $.ajax({
+      type: 'PUT',
+      url: 'http://localhost:80/products/' + productId,
+      data: JSON.stringify(updatedProduct),
+      contentType: 'application/json',
+      success: function(response) {
+        console.log('Product updated successfully:', response);
+        loadProducts();
+      },
+      error: function(xhr, status, error) {
+        console.error('Error updating product:', error);
+      }
     });
-}
+  }
 
-// Function to handle supplier deletion
-function deleteSupplier(supplierId) {
-  // Send a request to the backend API to delete the supplier
-  fetch(`/api/suppliers/${supplierId}`, {
-    method: 'DELETE',
-  })
-    .then(response => {
-      // Handle the response from the backend
-      // For example, update the supplier list display after deletion
-      fetchSuppliers();
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error deleting supplier:', error);
+  function deleteProduct(productId) {
+    $.ajax({
+      type: 'DELETE',
+      url: 'http://localhost:80/products/' + productId,
+      success: function(response) {
+        console.log('Product deleted successfully:', response);
+        loadProducts();
+      },
+      error: function(xhr, status, error) {
+        console.error('Error deleting product:', error);
+      }
     });
-}
+  }
 
-// Function to handle supplier update
-function updateSupplier(supplierId, newName) {
-  // Send a request to the backend API to update the supplier
-  fetch(`/api/suppliers/${supplierId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: newName,
-    }),
-  })
-    .then(response => {
-      fetchSuppliers();
-    })
-    .catch(error => {
-      console.error('Error updating supplier:', error);
-    });
-}
+  function renderBranches(branches) {
+    console.log(branches)
+    var branchesContainer = $('#branches-container');
+    branchesContainer.empty();
 
-function deleteBranch(branchId) {
-  fetch(`/api/branches/${branchId}`, {
-    method: 'DELETE',
-  })
-    .then(response => {
-      fetchBranches();
-    })
-    .catch(error => {
-      console.error('Error deleting branch:', error);
-    });
-}
+    for (var i = 0; i < branches.length; i++) {
+      var branch = branches[i];
+      var branchElement = $('<div class="branch"></div>');
 
-function updateBranch(branchId, newName) {
-  fetch(`/api/branches/${branchId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: newName,
-    }),
-  })
-    .then(response => {
-      fetchBranches();
-    })
-    .catch(error => {
-      console.error('Error updating branch:', error);
-    });
-}
+      var nameElement = $('<h3 class="branchName"></h3>');
+      nameElement.text(branch.name);
 
-document.getElementById('create-product-form').addEventListener('submit', createProduct);
-document.getElementById('create-supplier-form').addEventListener('submit', createSupplier);
-document.getElementById('create-branch-form').addEventListener('submit', createBranch);
+      var addressElement = $('<p class="branchAddress"></p>');
+      addressElement.text('Address: ' + branch.address);
 
-function fetchProducts() {
-  fetch('/api/products')
-    .then(response => response.json())
-    .then(data => {
-      const productList = document.getElementById('product-list');
-      productList.innerHTML = '';
+      var contactElement = $('<p class="branchContact"></p>');
+      contactElement.text('Contact: ' + branch.contact);
 
-      data.forEach(product => {
-        const productItem = document.createElement('div');
-        productItem.textContent = product.name;
+      branchElement.append(nameElement);
+      branchElement.append(addressElement);
+      branchElement.append(contactElement);
 
-        productList.appendChild(productItem);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching products:', error);
-    });
-}
-
-function fetchSuppliers() {
-  fetch('/api/suppliers')
-    .then(response => response.json())
-    .then(data => {
-      const supplierList = document.getElementById('supplier-list');
-      supplierList.innerHTML = '';
-
-      data.forEach(supplier => {
-        const supplierItem = document.createElement('div');
-        supplierItem.textContent = supplier.name;
-
-        supplierList.appendChild(supplierItem);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching suppliers:', error);
-    });
-}
-
-function fetchBranches() {
-  fetch('/api/branches')
-    .then(response => response.json())
-    .then(data => {
-      const branchList = document.getElementById('branch-list');
-      branchList.innerHTML = '';
-
-      data.forEach(branch => {
-        const branchItem = document.createElement('div');
-        branchItem.textContent = branch.name;
-
-        branchList.appendChild(branchItem);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching branches:', error);
-    });
-}
-
-window.addEventListener('load', function () {
-  fetchProducts();
-  fetchSuppliers();
-  fetchBranches();
-});
+      branchesContainer.append(branchElement);
+    }
+  }
