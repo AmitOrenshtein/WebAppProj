@@ -7,6 +7,9 @@ branchRouter.route('/')
     .get(branchesController.getBranches)
     .post(branchesController.createBranch)
 
+branchRouter.route('/name/:name')
+    .get(branchesController.getBranchesByName)
+
 branchRouter.route('/:id')
     .get(branchesController.getBranch)
     .put(branchesController.updateBranch)

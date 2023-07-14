@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="/layout/layout.js"></script>
     <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
+    <script src="branches.js"></script>
     <!-- TODO: Cheek if need to hide API Key -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIKRDQn2P4zSiCCM1RWHvb2Jfhp48rVXA"></script>
 </head>
@@ -15,6 +15,10 @@
 <section id="page-content">
     <div class="container">
         <h1>Branches </h1>
+        <div>
+            <input type="text" class="form-control" id="branchSearch">
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+        </div>
         <div id="googleMap"></div>
     </div>
 </section>

@@ -1,4 +1,5 @@
 const ProductService = require('../services/product');
+const purchaseHistoryService = require('../services/purchasehistory');
 
 async function addToShoppingCart(req, res) {
     console.log("recieved add cart request");
@@ -45,8 +46,20 @@ function getShoppingCart(req, res) {
     res.send(cart);
 }
 
+function buyShoppingCart(req, res) {
+    if(req.session && req.session.loggedUser && req.session.cart && req.session.cart.length > 0) {
+        let userId = req.session.loggedUser.id;
+        purchaseHistoryService.createPurchasehistory(userId, req.session.cart);
+        req.session.cart = [];
+        res.send("success");
+    } else {
+        return res.status(400).send('shopping cart is empty!');
+    }
+}
+
 module.exports = {
     addToShoppingCart,
     removeFromShoppingCart,
-    getShoppingCart
+    getShoppingCart,
+    buyShoppingCart
 }

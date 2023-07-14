@@ -7,3 +7,12 @@
 .container {
     text-align: center;
 }
+
+#branchSearch {
+    width: 40%;
+    display: inline;
+}
+
+#searchBtn {
+    margin-left: 10px;
+}

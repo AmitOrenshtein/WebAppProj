@@ -1,12 +1,19 @@
 const Purchasehistory = require('../models/purchasehistory')
+const product = require('../models/product')
+const productservice = require('../services/product')
 
-const createPurchasehistory = async (userID, historyproductList) => {
+
+
+const createPurchasehistory = async (userID, productList) => {
+    //assuming we recieve JS obecjts and we need to extract the ID
+    const productIDs = productList.map((currproduct)=>{return(currproduct.id)});
     const purchasehistory = new Purchasehistory(
-            {
-                userID:userID,
-                historyproductList:historyproductList
-                //TODO: create purchasehistory list
-            });
+        {
+            userID:userID,
+            productList:productIDs,
+            purchaseDate: new Date()
+        });
+    
     return await purchasehistory.save()
 }
 
@@ -18,9 +25,81 @@ const getPurchasehistorys = async() =>{
     return await Purchasehistory.find({})
 }
 
-//TODO get purchasehistory product list like in supplier
+const getPurchasehistoryesByUsername = async(searchUsername) =>{
+    let result = await Purchasehistory.find({Username : {$regex : searchUsername , $options : "i"}});
+    console.log(result);
+    return (result);
+}
+//returns all purchase historys for a user with full product info per history
+const getPurchasehistoryByUserID = async(searchUserID) =>{
+    // console.log(searchUserID)
+    let result = await Purchasehistory.find({userID : searchUserID})
+    // console.log(result)
+    // console.log(result[0]["productList"])
+    let finalResults = await Promise.all(result.map(async currRes => {
+        const products = await Promise.all(currRes["productList"].map(async currproduct => await productservice.getProductById(currproduct)))
+    // console.log(result)
+        let currFinal = {
+            "userID" : currRes["userID"],
+            "purchaseDate" : currRes["purchaseDate"],
+            "productList" : products,
+        }
+        return currFinal
+    }))
+    
+    // console.log(finalresult)
+    return finalResults
+}
+//can ignore this function
+const getPurchasehistoryDetails = async(searchUserID) =>{
+    currHistory = getPurchasehistoryByUserID(searchUserID);
+    var productDetalis = {};
+    curreHistory.array.forEach(currproduct => {
+        productDetalis[currproduct.id, "id"] = currproduct.id;
+        productDetalis[currproduct.id, "name"] = currproduct.name;
+        productDetalis[currproduct.id, "price"] = currproduct.price;
+        productDetalis[currproduct.id, "image"] = currproduct.image;
+    })
+    return (productDetalis);
+}
 
-const updatePurchasehistory = async (id, userID, historyListOfProducts) => {
+//for graph
+const getSalesByCategory = async() =>{
+    let allHistorys = getPurchasehistorys();
+    let allCategorys = []; 
+    allHistorys.array.forEach(curreHistory => {curreHistory.array.forEach(currproduct =>{allCategorys.append(currproduct.category)});
+    return (countByCategory(allCategorys))
+    });
+}
+const countByCategory = async(allcategories) =>{
+    var categorys = {}
+    //will this loop work? 
+    allcategories.array.forEach(currCategory =>{
+        if(currCategory in categorys)
+            categorys[currCategory] +=1
+        else
+            categorys[currCategory] =1
+    })
+    return(categorys)
+}
+
+
+//for graph
+const getSalesByDate = async() =>{
+    let allHistorys = getPurchasehistorys();
+    let salesByDate = {}; 
+    allHistorys.array.forEach(currHistory=>{(currDate = currHistory.Date)
+    if(currDate in currDate)
+        salesByDate[currDate] +=1;
+    else 
+        salesByDate[currDate] =1;
+    });
+    return (salesByDate)
+};
+
+
+//TODO - make this function blocked? maybe we want it imutable 
+const updatePurchasehistory = async (id,userID, prodcutList) => {
     const purchasehistory = await getPurchasehistoryById(id);
     if (!purchasehistory)
         return null;
@@ -28,10 +107,10 @@ const updatePurchasehistory = async (id, userID, historyListOfProducts) => {
         purchasehistory.userID = purchasehistory.userID;
     else  
         purchasehistory.userID = userID;
-    if(!historyListOfProducts)
-        purchasehistory.historyListOfProducts = purchasehistory.historyListOfProducts;
+    if(!prodcutList)
+        purchasehistory.prodcutList = purchasehistory.prodcutList;
     else
-        purchasehistory.historyListOfProducts = historyListOfProducts;
+        purchasehistory.prodcutList = prodcutList;
     await purchasehistory.save();
     return purchasehistory;
 }
@@ -47,7 +126,13 @@ const deletePurchasehistory = async (id) => {
 module.exports = {
     createPurchasehistory,
     getPurchasehistoryById,
+    getPurchasehistoryesByUsername,
     getPurchasehistorys,
     updatePurchasehistory,
+    getSalesByCategory,
+    countByCategory,
+    getSalesByDate,
+    getPurchasehistoryByUserID,
+    getPurchasehistoryDetails,
     deletePurchasehistory
 }
