@@ -23,10 +23,11 @@ Content-Type: application/json
 //full POST - works
 
 {
-    "username" : "double test",
-    "password":"1234567890",
-    "userType":"regular",
-    "deliveryAdress": "Allenby 100"
+    "username" : "Amit",
+    "password":"12345",
+    "deliveryAdress": "Allenby 300",
+    "userType":"Regular",
+    "shoppoigCart": ""
 }
 
 

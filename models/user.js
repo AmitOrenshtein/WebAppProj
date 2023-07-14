@@ -7,12 +7,6 @@ const User = new Schema({
     username: {
         type: String,
         required: [true, "username is required, please re-enter"],
-        validate: {
-            validator: function (value) {
-              return value.trim().includes(' ');
-            },
-            message: 'Input must not contain spaces',
-          },
     },
     password: {
         type: String,
@@ -24,10 +18,10 @@ const User = new Schema({
     },
     deliveryAdress: {
         type: String,
-        required: [true, "address is required, please re-enter"],
     },
     userType: {
         type: String,
+        enum: ['Admin', 'Regular'],
         required: [true, "type is required, please re-enter"],
     },
 });
