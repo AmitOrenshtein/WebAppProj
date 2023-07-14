@@ -1,12 +1,18 @@
 const Branch = require('../models/branch')
 
-const createBranch = async (name, address) => {
+const createBranch = async (name, lng,ltd) => {
     const branch = new Branch(
             {
                 name:name,
-                address:address
+                lng:lng,
+                ltd:ltd
             });
-    return await branch.save()
+    //return await branch.save()
+    customeResponse = await branch.save()
+    .then(()=> true)
+    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
+    return false})
+    return customeResponse
 }
 
 

@@ -1,32 +1,33 @@
-GET http://localhost:8081/branches/
+GET http://localhost:80/branches/
 
 ###
 
-GET http://localhost:8081/branches/64a393227b866816e47c8dd4
-
-
-###
-
-
-GET http://localhost:8081/branches/name/tel
+GET http://localhost:80/branches/64a393227b866816e47c8dd4
 
 
 ###
 
 
-GET http://localhost:8081/
+GET http://localhost:80/branches/name/tel
 
 
 ###
 
 
-POST http://localhost:8081/branches/
+GET http://localhost:80/
+
+
+###
+
+
+POST http://localhost:80/branches/
 Content-Type: application/json
 //full POST - works
 
 {
-    "name":"tel aviv center",
-    "address":"https://www.google.com/maps/place/Dizengoff+Center/@32.0752226,34.7722591,17z/data=!3m1!4b1!4m6!3m5!1s0x151d4b8064c7531d:0x5521e5d0583bd2df!8m2!3d32.0752181!4d34.774834!16s%2Fm%2F04ycgsq?entry=ttu"
+    "name":"Herzliya Pituah",
+    "lng" : 32.16216752877493, 
+    "ltd" : 34.80890029859294
    
 }
 
@@ -34,7 +35,7 @@ Content-Type: application/json
 ###
 
 
-POST http://localhost:8081/branches/
+POST http://localhost:80/branches/
 Content-Type: application/json
 //partial POST - works
 
@@ -47,7 +48,7 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:8081/branches/64a393227b866816e47c8dd4
+PUT http://localhost:80/branches/64a393227b866816e47c8dd4
 Content-Type: application/json
 //Accept: application/json
 //Full PUT - works
@@ -61,7 +62,7 @@ Content-Type: application/json
 
 //TODO change branch product list
 
-PUT http://localhost:8081/branches/64a393227b866816e47c8dd4
+PUT http://localhost:80/branches/64a393227b866816e47c8dd4
 Content-Type: application/json
 //Accept: application/json
 //Partial PUT - works
@@ -75,6 +76,6 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:8081/branches/64a393387b866816e47c8dd7
+DELETE  http://localhost:80/branches/64a393387b866816e47c8dd7
 
 

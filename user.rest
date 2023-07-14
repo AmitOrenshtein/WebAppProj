@@ -1,29 +1,29 @@
-GET http://localhost:8081/users/
+GET http://localhost:80/users/
 
 ###
 
-GET http://localhost:8081/users/64a943893a06f7af153dab7f
-
-###
-
-
-GET http://localhost:8081/users/username/user
+GET http://localhost:80/users/64a943893a06f7af153dab7f
 
 ###
 
 
-GET http://localhost:8081/
+GET http://localhost:80/users/username/user
+
+###
+
+
+GET http://localhost:80/
 
 
 ###
 
 
-POST http://localhost:8081/users/
+POST http://localhost:80/users/
 Content-Type: application/json
 //full POST - works
 
 {
-    #"username" : "double test",
+    "username" : "double test",
     "password":"1234567890",
     "userType":"regular",
     "deliveryAdress": "Allenby 100"
@@ -33,7 +33,7 @@ Content-Type: application/json
 ###
 
 
-POST http://localhost:8081/users/
+POST http://localhost:80/users/
 Content-Type: application/json
 //partial POST - works
 
@@ -46,7 +46,7 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:8081/users/64a01d791e54b4812186ace7
+PUT http://localhost:80/users/64a01d791e54b4812186ace7
 Content-Type: application/json
 //Accept: application/json
 //Full PUT - works
@@ -62,7 +62,7 @@ Content-Type: application/json
 
 //TODO change user product list
 
-PUT http://localhost:8081/users/64a01d791e54b4812186ace7
+PUT http://localhost:80/users/64a01d791e54b4812186ace7
 Content-Type: application/json
 //Accept: application/json
 //Partial PUT - works
@@ -76,6 +76,6 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:8081/users/64a01d461e54b4812186ace0
+DELETE  http://localhost:80/users/64a01d461e54b4812186ace0
 
 

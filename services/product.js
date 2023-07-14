@@ -16,7 +16,12 @@ const createProduct = async (name, image, video, brand, description, category, a
                 price:price
             });
     //saving to DB
-    return await product.save()
+    customeResponse = await product.save()
+    //return await product.save()
+    .then(()=> true)
+    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
+    return false})
+    return customeResponse
 }
 
 
@@ -62,8 +67,9 @@ const groupProductsByBrand = async(brand) =>{
     let result = await Product.aggregate([ {$group: {_id:{brand: "$brand"} }}]);
     return (result);
 }
-const updateProduct = async (id, name,image,video,brand,description, category, amountInInventory, price) => {
+const updateProduct = async (id, name,image,video,brand,description, category, price, amountInInventory) => {
     const product = await getProductById(id);
+
     if (!product)
         return null;
     if(!name)

@@ -78,12 +78,12 @@ const getProductsByPrice = async(req,res) =>{
 
 
 const updateProduct = async (req,res) => {
-   //TODO: make it work with only specific paremeters inserted
   const {name,image, video, brand, descrpition, category, amountInInventory,supplier,price}  = req.body
   const product = await Productservice.updateProduct(req.params.id, name, image, video, brand, descrpition, category, amountInInventory, supplier,price);
   if (!product){
     return res.status(404).json({errors:['Product not found']});
   }
+  console.log("controller product is:", product)
   res.json(product);
 };
 
