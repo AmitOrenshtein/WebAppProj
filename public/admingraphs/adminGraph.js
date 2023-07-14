@@ -15,12 +15,16 @@ async function fetchData() {
 }
 
 async function renderGraphs() {
-  const data = await fetchData();
-
-  if (!data) {
-    return;
-  }
-
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+  
+    // Fetch product data
+    const product = await getProduct(productId);
+  
+    if (!product) {
+      return;
+    }
+  
   // Group by category of product
   const categoryData = data.reduce((result, item) => {
     if (!result[item.category]) {
@@ -56,6 +60,21 @@ async function renderGraphs() {
     yLabel: 'Number of Sales',
   };
   js3d.graph('graph2', dateGraphData, dateGraphOptions);
+}
+function getProduct(id) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url:"http://localhost:80/products/"+id,
+      success: function (data) {
+        resolve(data);
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+        reject(error);
+      }
+    });
+  });
 }
 
 window.addEventListener('load', renderGraphs);
