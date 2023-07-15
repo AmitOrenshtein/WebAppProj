@@ -15,7 +15,7 @@ const purchaseHistory = new Schema({
     productList: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'Product'
+          ref: 'product'
         }
     ]
     }

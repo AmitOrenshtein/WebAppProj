@@ -1,5 +1,9 @@
 $(document).ready(function () {
     if (loggedUser) {
+        $( "#searchForm" ).on( "submit", function( event ) {
+            event.preventDefault();
+            searchPurchaseHistory();
+        });
         $("#logged").removeClass("hidden");
         $("#notLogged").addClass("hidden");
         getPurchaseHistory();
@@ -22,11 +26,41 @@ function getPurchaseHistory() {
     });
 }
 
+function searchPurchaseHistory() {
+    let fromDate = $("#searchFromDate").val();
+    let toDate = $("#searchToDate").val();
+    let category = $("#searchCategory").val();
+    let minPrice = $("#searchMinPrice").val();
+    let maxPrice = $("#searchMaxPrice").val();
+    let filter = {};
+    if(category !== "none")
+        filter.category = category;
+    if(minPrice !== "" && minPrice !== 0)
+        filter.minPrice = minPrice;
+    if(maxPrice !== "" && maxPrice !== 0)
+        filter.maxPrice = maxPrice;
+    if(fromDate !== "")
+        filter.fromDate = new Date(fromDate);
+    if(toDate !== "")
+        filter.toDate = new Date(toDate);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/purchaseHistory/search",
+        data: filter,
+        success: function (data) {
+            fillHistory(data);
+        },
+        error: function (XMLHttpRequest, textStatus, error) {
+            console.log(error);
+        }
+    });
+}
+
 function fillHistory(data) {
-    console.log(data);
     let historyContainer = $("#purchaseContainer");
     let historyExample = $("#examplePurchaseRow");
     let productExample = $("#exampleProdRow");
+    historyContainer.html("");
     for(let i = 0; i < data.length; i++) {
         let currPurchaseData = data[i];
         let newPurchaseRow = historyExample.clone();

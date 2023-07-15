@@ -123,6 +123,34 @@ const deletePurchasehistory = async (id) => {
     return purchasehistory;
 }
 
+const searchPurchaseHistory = async (userId, fromDate, toDate, category, minPrice, maxPrice) => {
+    let filter = {userID: userId};
+    if(fromDate || toDate) {
+        filter.purchaseDate = {};
+        if(fromDate)
+            filter.purchaseDate.$gte = fromDate;
+        if(toDate)
+            filter.purchaseDate.$lte = toDate;
+    }
+    const result = await Purchasehistory.find(filter).populate('productList').exec();
+    let filteredResult = result;
+    if(minPrice || maxPrice || category) {
+        filteredResult = result.filter(ph => {
+            let sumFilter = true;
+            let categoryFilter = !category;
+            let sumPrice = 0;
+            ph.productList.forEach(prod => {
+                sumPrice += prod.price;
+                categoryFilter = categoryFilter || prod.category === category
+            });
+            sumFilter = (!minPrice || sumPrice >= minPrice) &&
+                (!maxPrice || sumPrice <= maxPrice);
+            return categoryFilter && sumFilter;
+        });
+    }
+    return filteredResult;
+}
+
 module.exports = {
     createPurchasehistory,
     getPurchasehistoryById,
@@ -134,5 +162,6 @@ module.exports = {
     getSalesByDate,
     getPurchasehistoryByUserID,
     getPurchasehistoryDetails,
-    deletePurchasehistory
+    deletePurchasehistory,
+    searchPurchaseHistory
 }

@@ -76,8 +76,18 @@ const createPurchasehistory = async (req,res) => {
         }
         res.send();
       }
-      
-  
+
+  const searchPurchaseHistory = async (req, res) => {
+      const {fromDate, toDate, category, minPrice, maxPrice}  = req.body;
+      if(!req.session || !req.session.loggedUser) {
+          return res.status(400).json({errors:['User is not logged in!']});
+      } else {
+          let userId = req.session.loggedUser.id;
+          const result = await purchasehistoryservice.searchPurchaseHistory(userId, fromDate, toDate, category, minPrice, maxPrice);
+          res.json(result);
+      }
+  }
+
   module.exports = {
     createPurchasehistory,
     getPurchasehistorys,
@@ -88,5 +98,6 @@ const createPurchasehistory = async (req,res) => {
     getSalesByCategory,
     getSalesByDate,
     getPurchasehistoryDetails,
-    deletePurchasehistory
+    deletePurchasehistory,
+    searchPurchaseHistory
 }
