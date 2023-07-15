@@ -1,4 +1,4 @@
-GET http://localhost:80/as/
+GET http://localhost:80/users/
 
 ###
 
@@ -23,11 +23,10 @@ Content-Type: application/json
 //full POST - works
 
 {
-    "username" : "Amit",
+    "username" : "Amit2",
     "password":"12345",
     "deliveryAdress": "Allenby 300",
-    "userType":"Regular",
-    "shoppoigCart": ""
+    "userType":"Regular"
 }
 
 
@@ -40,7 +39,6 @@ Content-Type: application/json
 
 {
     "name":"BB nice shoes"
-
 }
 
 
@@ -74,6 +72,6 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:80/users/64a01d461e54b4812186ace0
+DELETE  http://localhost:80/users/64b23951191d3cd964abbcf2
 
 

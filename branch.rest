@@ -25,10 +25,9 @@ Content-Type: application/json
 //full POST - works
 
 {
-    "name":"Herzliya Pituah",
+    "name":123,
     "lng" : 32.16216752877493, 
     "ltd" : 34.80890029859294
-   
 }
 
 
@@ -76,6 +75,6 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:80/branches/64a393387b866816e47c8dd7
+DELETE  http://localhost:80/branches/64b238d2809e61f8b4804b17
 
 

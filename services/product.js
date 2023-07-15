@@ -119,6 +119,7 @@ const deleteProduct = async (id) => {
     if (!product)
         return null;
     await product.deleteOne();
+    console.log("Product deleted")
     return product;
 }
 

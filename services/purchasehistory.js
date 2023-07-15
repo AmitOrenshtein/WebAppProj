@@ -120,6 +120,7 @@ const deletePurchasehistory = async (id) => {
     if (!purchasehistory)
         return null;
     await purchasehistory.deleteOne();
+    console.log("Purchase History deleted")
     return purchasehistory;
 }
 

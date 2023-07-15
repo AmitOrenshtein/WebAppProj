@@ -48,7 +48,6 @@ Content-Type: application/json
 //full POST - works
 
 {
-    "name": "Coleman",
     "category":"Running",
     "brand": "Adidas",
     "description": "Good for very long distance",
@@ -90,7 +89,7 @@ Content-Type: application/json
 
 
 {
-    "amountInInventory" : 21,
+    "amountInInventory" : "abc",
     "price" : 250
 }
 

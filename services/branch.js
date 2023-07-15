@@ -52,6 +52,7 @@ const deleteBranch = async (id) => {
     if (!branch)
         return null;
     await branch.deleteOne();
+    console.log("Branch deleted")
     return branch;
 }
 

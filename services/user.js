@@ -13,7 +13,7 @@ const createUser = async (username, password, shoppingCart, deliveryAdress, user
             });
             customeResponse = await user.save()
             .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
-            return "invalid input, please note your required fields, types & spaces"})
+            return false})
             return customeResponse
 }
 
@@ -86,6 +86,7 @@ const deleteUser = async (id) => {
     if (!user)
         return null;
     await user.deleteOne();
+    console.log("User deleted")
     return user;
 }
 
