@@ -20,7 +20,7 @@ function getAllProducts() {
 function search() {
     let searchText = $("#searchText").val();
     let category = $("#searchCategory").val();
-    let supplier = $("#searchSupplier").val();
+    let brand = $("#searchBrand").val();
     let minPrice = $("#searchMinPrice").val();
     let maxPrice = $("#searchMaxPrice").val();
     let filter = {};
@@ -28,8 +28,8 @@ function search() {
         filter.name = searchText;
     if(category !== "none")
         filter.category = category;
-    if(supplier !== "none")
-        filter.supplier = supplier;
+    if(brand !== "none")
+        filter.brand = brand;
     if(minPrice !== "" && minPrice !== 0)
         filter.minPrice = minPrice;
     if(maxPrice !== "" && maxPrice !== 0)

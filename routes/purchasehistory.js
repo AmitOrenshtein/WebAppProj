@@ -23,6 +23,9 @@ purchasehistoryRouter.route('/salesbycategory')
 purchasehistoryRouter.route('/salesbydate') 
     .get(purchasehistoryController.getSalesByDate)
 
+purchasehistoryRouter.route('/search')
+    .post(purchasehistoryController.searchPurchaseHistory)
+
 purchasehistoryRouter.route('/:id')
     .get(purchasehistoryController.getPurchasehistory)
     .put(purchasehistoryController.updatePurchasehistory)

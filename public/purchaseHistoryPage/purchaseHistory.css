@@ -30,3 +30,7 @@
 #examplePurchaseRow {
     display: none;
 }
+
+.placeholderLabel {
+    display: block;
+}

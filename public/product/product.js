@@ -22,7 +22,7 @@ function fillValues() {
     $(".prodTitle").html(product.name);
     $(".prodImg").attr("src", product.image);
     $(".prodCategory").html(product.category);
-    $(".prodSupplier").html(product.supplier);
+    $(".prodBrand").html(product.brand);
     $(".prodDesc").html(product.description);
     $(".prodPrice").html(product.price.toFixed(2));
     let prodVid = $(".prodVid");

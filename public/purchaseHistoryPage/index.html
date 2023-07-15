@@ -38,6 +38,50 @@
         </div>
         <div id="logged" class="hidden">
             <h2 class="mb-4">Purchase History</h2>
+            <form id="searchForm">
+                <div class="row my-4 searchForm">
+                    <div class="form-group col-12 col-md-7 col-lg-5">
+                        <label for="searchFromDate">Date range</label>
+                        <label for="searchToDate" class="hidden"></label>
+                        <div class="row">
+                            <div class="col-5">
+                                <input type="date" class="searchDateRange form-control" id="searchFromDate" aria-describedby="search">
+                            </div>
+                            -
+                            <div class="col-5">
+                                <input type="date" class="searchDateRange form-control" id="searchToDate" aria-describedby="search">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-12 col-md-5 col-lg-2">
+                        <label for="searchCategory">Category</label>
+                        <select class="form-control" id="searchCategory">
+                            <option value="none" selected></option>
+                            <option>Football</option>
+                            <option>Basketball</option>
+                            <option>Running</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12 col-md-8 col-lg-3">
+                        <label for="searchMinPrice">Price range</label>
+                        <label for="searchMaxPrice" class="hidden"></label>
+                        <div class="row">
+                            <div class="col-5">
+                                <input type="number" class="searchPriceRange form-control" id="searchMinPrice" aria-describedby="search" placeholder="">
+                            </div>
+                            -
+                            <div class="col-5">
+                                <input type="number" class="searchPriceRange form-control" id="searchMaxPrice" aria-describedby="search" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-md-1">
+                        <label class="placeholderLabel">&#8205;</label>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
             <div id="purchaseContainer">
 
             </div>

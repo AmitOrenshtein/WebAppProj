@@ -128,7 +128,7 @@ const searchProducts = async (name, brand, category, supplier, minPrice, maxPric
     if(name)
         filter.name = {$regex : name , $options : "i"};
     if(brand)
-        filter.brand = {$regex : name , $options : "i"};
+        filter.brand = brand;
     if(category)
         filter.category = category;
     if(supplier)

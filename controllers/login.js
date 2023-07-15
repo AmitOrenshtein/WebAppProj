@@ -7,7 +7,8 @@ async function login(req, res) {
         console.log("logged in to user: " + username);
         req.session.loggedUser = {
             id: user._id.toString(),
-            username: user.username
+            username: user.username,
+            isAdmin: user.userType === 'Admin'
         };
         res.redirect('/');
     }
