@@ -30,12 +30,13 @@ app.use(express.static('public'));
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
-app.use('/products', products);
+app.use('/products', products)
 app.use('/users', users);
 app.use('/branches', branches);
 app.use("/purchasehistory/", pruchasehistorys);
 app.use("/login", login);
 app.use("/shoppingcart/", shoppingCart);
+app.use((error,req,res,next)=>res.status(404).json({errors:['Page Not Found']}))
 
 const server = app.listen(process.env.PORT,()=>{console.log("Listening to port")});
 webSocketServer.listenToWebSocketServer(server);

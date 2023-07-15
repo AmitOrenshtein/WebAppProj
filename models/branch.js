@@ -6,12 +6,15 @@ const Branch = new Schema({
     
     name: {
         type: String,
+        required: [true, "name is required"],
     },
-    lat: {
+    ltd: {
         type: Number,
+        required: [true, "lat is required"],
     },
     lng: {
         type: Number,
+        required: [true, "lng is required"],
     }
 });
 

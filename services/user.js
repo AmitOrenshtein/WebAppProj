@@ -11,16 +11,18 @@ const createUser = async (username, password, shoppingCart, deliveryAdress, user
                 shoppingCart:shoppingCart
                 //TODO: create refernce to shopping cart
             });
-    customeResponse = await user.save()
-    .then(()=> true)
-    .catch((err)=> {console.log(err._message)
-    return false})
-    return customeResponse
+            customeResponse = await user.save()
+            .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
+            return false})
+            return customeResponse
 }
 
 
 const getUserById = async(id) =>{
-    return await User.findById(id)
+    // console.log("in get user sevice:", id)
+    let res = await User.findById(id)
+    console.log(res)
+    return res
 }
 const getUsers = async() =>{
     return await User.find({})
@@ -50,9 +52,10 @@ const getUsersByCategory = async(searchedCategory) =>{
 */
 
 const updateUser = async (id,username, password, shoppingCart, deliveryAdress, userType) => {
-    const user = await getUserById(id);
-    if (!user)
-        return null;
+    // console.log("in service: ", id)
+    const user = await getUserById(id).catch(error =>false)
+    if (user === false)
+        return "User not found";
     if(!username)
         user.username = user.username;
     else  
@@ -73,8 +76,9 @@ const updateUser = async (id,username, password, shoppingCart, deliveryAdress, u
         user.userType = user.userType;
     else
         user.userType = userType;
-    await user.save();
-    return user;
+    let res = await user.save()
+    .catch(error=>"Input invalid")
+    return res;
 }
 
 const deleteUser = async (id) => {
@@ -82,6 +86,7 @@ const deleteUser = async (id) => {
     if (!user)
         return null;
     await user.deleteOne();
+    console.log("User deleted")
     return user;
 }
 

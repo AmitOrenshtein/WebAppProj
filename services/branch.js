@@ -1,12 +1,18 @@
 const Branch = require('../models/branch')
 
-const createBranch = async (name, address) => {
+const createBranch = async (name, lng,ltd) => {
     const branch = new Branch(
             {
                 name:name,
-                address:address
+                lng:lng,
+                ltd:ltd
             });
-    return await branch.save()
+    //return await branch.save()
+    customeResponse = await branch.save()
+    .then(()=> true)
+    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
+    return false})
+    return customeResponse
 }
 
 
@@ -25,9 +31,9 @@ const getBranchesByName = async(searchName) =>{
 }
 
 const updateBranch = async (id,name, address) => {
-    const branch = await getBranchById(id);
+    const branch = await getBranchById(id).catch(error =>false)
     if (!branch)
-        return null;
+        return "branch not found";
     if(!name)
         branch.name = branch.name;
     else  
@@ -36,8 +42,9 @@ const updateBranch = async (id,name, address) => {
         branch.address = branch.address;
     else
         branch.address = address;
-    await branch.save();
-    return branch;
+    let res = await branch.save()
+    .catch(error=>"Input invalid")
+    return res;
 }
 
 const deleteBranch = async (id) => {
@@ -45,6 +52,7 @@ const deleteBranch = async (id) => {
     if (!branch)
         return null;
     await branch.deleteOne();
+    console.log("Branch deleted")
     return branch;
 }
 
