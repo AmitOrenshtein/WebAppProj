@@ -49,9 +49,6 @@ function renderProducts(products) {
     var categoryElement = $('<p class="prodCategory"></p>');
     categoryElement.text('Category: ' + product.category);
 
-    var supplierElement = $('<p class="prodSupplier"></p>');
-    supplierElement.text('Supplier: ' + product.supplier);
-
     var descElement = $('<p class="prodDesc"></p>');
     descElement.text(product.description);
 
@@ -67,7 +64,6 @@ function renderProducts(products) {
     productElement.append(titleElement);
     productElement.append(imgElement);
     productElement.append(categoryElement);
-    productElement.append(supplierElement);
     productElement.append(descElement);
     productElement.append(priceElement);
     productElement.append(updateButton);
