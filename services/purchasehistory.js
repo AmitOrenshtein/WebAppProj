@@ -65,37 +65,37 @@ const getPurchasehistoryDetails = async(searchUserID) =>{
 
 //for graph
 const getSalesByCategory = async() =>{
-    let allHistorys = getPurchasehistorys();
-    let allCategorys = []; 
-    allHistorys.array.forEach(curreHistory => {curreHistory.array.forEach(currproduct =>{allCategorys.append(currproduct.category)});
-    return (countByCategory(allCategorys))
+    const allHistorys = await Purchasehistory.find({}).populate('productList').exec();
+    let allCategorys = {};
+    allHistorys.forEach(curreHistory => {
+        curreHistory.productList.forEach(currproduct =>{
+            if(allCategorys[currproduct.category])
+                allCategorys[currproduct.category]++;
+            else
+                allCategorys[currproduct.category] = 1;
+        });
     });
-}
-const countByCategory = async(allcategories) =>{
-    var categorys = {}
-    //will this loop work? 
-    allcategories.array.forEach(currCategory =>{
-        if(currCategory in categorys)
-            categorys[currCategory] +=1
-        else
-            categorys[currCategory] =1
-    })
-    return(categorys)
+    return allCategorys;
 }
 
 
 //for graph
 const getSalesByDate = async() =>{
-    let allHistorys = getPurchasehistorys();
+    let allHistorys = await getPurchasehistorys();
     let salesByDate = {}; 
-    allHistorys.array.forEach(currHistory=>{(currDate = currHistory.Date)
-    if(currDate in currDate)
-        salesByDate[currDate] +=1;
-    else 
-        salesByDate[currDate] =1;
+    allHistorys.forEach(currHistory=>{
+        let currDate = formatDate(currHistory.purchaseDate);
+        if(currDate in salesByDate)
+            salesByDate[currDate] +=1;
+        else
+            salesByDate[currDate] =1;
     });
     return (salesByDate)
 };
+
+function formatDate(date){
+    return date.getDate() + '-' + (date.getMonth()+1)+'-' + date.getFullYear();
+}
 
 
 //TODO - make this function blocked? maybe we want it imutable 
@@ -159,7 +159,6 @@ module.exports = {
     getPurchasehistorys,
     updatePurchasehistory,
     getSalesByCategory,
-    countByCategory,
     getSalesByDate,
     getPurchasehistoryByUserID,
     getPurchasehistoryDetails,

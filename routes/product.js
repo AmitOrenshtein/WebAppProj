@@ -16,7 +16,7 @@ productRouter.route('/category/:searchedCategory1/:searchedCategory2')
 productRouter.route('/category/:searchedCategory1/:searchedCategory2/:searchedCategory3')
     .get(productsController.getProductsByCategory)
 //a group by query 
-productRouter.route('/groupproductsbycat/:category')
+productRouter.route('/groupproductsbycat')
     .get(productsController.groupProductsByCategory)
 //a group by query 
 productRouter.route('/groupproductsbybrand/:category')
