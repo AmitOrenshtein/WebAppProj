@@ -56,9 +56,8 @@ const getProductsByPrice = async(minprice, maxprice) =>{
     //TODO make this work including the multiple GET commands 
 }
 
-const groupProductsByCategory = async(category) =>{
-    //console.log("groupBy service activated")
-    let result = await Product.aggregate([ {$group: {_id:{category: "$category"} }}]);
+const groupProductsByCategory = async() =>{
+    let result = await Product.aggregate([ {$group: {_id:{category: "$category"}, count: {$count:{}}}}]);
     return (result);
 }
 

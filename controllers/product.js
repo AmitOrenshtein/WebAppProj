@@ -62,7 +62,7 @@ const getProductsByPrice = async(req,res) =>{
 
   const groupProductsByCategory = async(req,res) =>{
     //console.log("groupBy controller activated")
-    const products = await Productservice.groupProductsByCategory(req.params.category);
+    const products = await Productservice.groupProductsByCategory();
     if(!products){
       return res.status(404).json({errors:['No products are found in this category']});
     }
