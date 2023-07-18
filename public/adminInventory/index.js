@@ -123,6 +123,8 @@ function updateProduct(productId) {
     console.error('Invalid price entered');
     return;
   }
+  updatedProduct.price = updatedProduct.price.toFixed(2);
+
   updatedProduct.amountInInventory = parseInt(prompt('Enter the updated product amount in inventory:'));
   if (isNaN(updatedProduct.amountInInventory) || updatedProduct.amountInInventory < 0) {
     console.error('Invalid amount entered');

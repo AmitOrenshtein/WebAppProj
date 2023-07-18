@@ -1,24 +1,20 @@
-/* admin.css */
+.hidden {
+  display: none;
+}
 
-/* Overall styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f2f2f2;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  /* Graph placeholders */
-  .graph-container {
-    margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
+.tick {
+  font-size: 16px;
+}
+
+.myGraphs {
+  display: inline-block;
+}
+
+.graphsMenu {
+  padding: 10px;
+  text-align: center;
+}
+
+.graphsPageContainer {
+  text-align: center;
+}
