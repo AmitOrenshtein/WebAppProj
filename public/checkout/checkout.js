@@ -48,6 +48,6 @@ function validateForm() {
         return false;
     } else {
         $("#validMes").html("");
-        return false;
+        return true;
     }
 }
