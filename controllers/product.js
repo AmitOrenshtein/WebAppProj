@@ -3,6 +3,9 @@ const Productservice = require('../services/product')
 const createProduct = async (req,res) => {
   const {name,image, video, brand, descrpition, category, amountInInventory,supplier, price}  = req.body
   const newProduct = await Productservice.createProduct(name,image,video,brand,descrpition,category,amountInInventory,supplier, price);
+  if (!newProduct){
+    return res.status(404).json({errors:[newProduct]});
+  }
   res.json(newProduct)
 }
 
