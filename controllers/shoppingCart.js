@@ -1,10 +1,9 @@
 const ProductService = require('../services/product');
 const purchaseHistoryService = require('../services/purchasehistory');
+const facebookService = require('../services/fackbookPage');
 
 async function addToShoppingCart(req, res) {
-    console.log("recieved add cart request");
     const { prodId } = req.body;
-    console.log(prodId)
     if(prodId) {
         const prod = await ProductService.getProductById(prodId);
         if(prod) {
@@ -12,7 +11,8 @@ async function addToShoppingCart(req, res) {
                 id: prodId,
                 title: prod.name,
                 image: prod.image,
-                price: prod.price
+                price: prod.price,
+                category: prod.category
             }
             let cart = [];
             if(req.session && req.session.cart)
@@ -30,7 +30,6 @@ function removeFromShoppingCart(req, res) {
     const {prodIndex} = req.body;
     if(prodIndex) {
         if(req.session && req.session.cart) {
-            console.log("removed from cart!");
             let cart = req.session.cart;
             cart.splice(prodIndex, 1);
             req.session.cart = cart;
@@ -46,10 +45,20 @@ function getShoppingCart(req, res) {
     res.send(cart);
 }
 
-function buyShoppingCart(req, res) {
+async function buyShoppingCart(req, res) {
     if(req.session && req.session.loggedUser && req.session.cart && req.session.cart.length > 0) {
         let userId = req.session.loggedUser.id;
-        purchaseHistoryService.createPurchasehistory(userId, req.session.cart);
+        const buyResult = await purchaseHistoryService.createPurchasehistory(userId, req.session.cart);
+        if(buyResult) {
+            let categoryAmount = [];
+            req.session.cart.forEach(prod => {
+                if(categoryAmount[prod.category])
+                    categoryAmount[prod.category]++;
+                else
+                    categoryAmount[prod.category] = 1;
+            });
+            facebookService.publishPostForNewSale(categoryAmount);
+        }
         req.session.cart = [];
         res.send("success");
     } else {
