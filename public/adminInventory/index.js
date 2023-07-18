@@ -51,6 +51,8 @@ function renderProducts(products) {
 
     var supplierElement = $('<p class="prodSupplier"></p>');
     supplierElement.text('Supplier: ' + product.supplier);
+    var brandElement = $('<p class="prodBrand"></p>');
+    brandElement.text('Brand: ' + product.brand);
 
     var descElement = $('<p class="prodDesc"></p>');
     descElement.text(product.description);
@@ -67,7 +69,7 @@ function renderProducts(products) {
     productElement.append(titleElement);
     productElement.append(imgElement);
     productElement.append(categoryElement);
-    productElement.append(supplierElement);
+    productElement.append(brandElement);
     productElement.append(descElement);
     productElement.append(priceElement);
     productElement.append(updateButton);
@@ -111,11 +113,18 @@ function updateProduct(productId) {
     return;
   }
 
+  updatedProduct.brand = prompt('Enter the updated product brand:');
+  if (updatedProduct.brand === null) {
+    return;
+  }
+
   updatedProduct.price = parseFloat(prompt('Enter the updated product price:'));
   if (isNaN(updatedProduct.price) || updatedProduct.price <= 0) {
     console.error('Invalid price entered');
     return;
   }
+  updatedProduct.price = updatedProduct.price.toFixed(2);
+
   updatedProduct.amountInInventory = parseInt(prompt('Enter the updated product amount in inventory:'));
   if (isNaN(updatedProduct.amountInInventory) || updatedProduct.amountInInventory < 0) {
     console.error('Invalid amount entered');
@@ -171,6 +180,11 @@ function createProduct() {
 
   newProduct.category = prompt('Enter the product category:');
   if (newProduct.category === null) {
+    return;
+  }
+
+  newProduct.brand = prompt('Enter the product brand:');
+  if (newProduct.brand === null) {
     return;
   }
 

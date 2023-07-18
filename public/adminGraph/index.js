@@ -1,103 +1,120 @@
-$(document).ready(function() {
-    renderGraphs();
+$(document).ready(function () {
+
+  $(".graphsBtn").on("click", function (e) {
+      $(".myGraphs").addClass("hidden");
+      $(".graphsBtn").removeAttr("disabled");
+      $(this).attr("disabled", "true");
+      let graphId = $(this).attr("forGraph");
+      $("#"+graphId).removeClass("hidden");
   });
-  
-  async function renderGraphs() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-  
-    // Fetch product data
-    const product = await getProduct(productId);
-  
-    if (!product) {
-      return;
-    }
-  
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/statistics');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error(error);
-        const errorContainer = document.getElementById('error-container');
-        errorContainer.textContent = 'Error fetching data. Please try again later.';
-        return null;
+
+  getDataForDates();
+  getDataForCategories();
+  getDataForProducts();
+});
+
+function getDataForDates() {
+  $.ajax({
+      type: "GET",
+      url:"http://localhost:80/purchasehistory/salesbydate",
+      success: function(data){
+          let parsedData = [];
+          for(let date in data) {
+              parsedData.push({
+                  'date': date,
+                  'purchase': data[date]
+              });
+          }
+          fillGraph("datesGraph", parsedData, 'date', 'purchase');
+      },
+      error: function (XMLHttpRequest, textStatus, error) {
+          console.log(error);
       }
-    };
-  
-    // Group by category of product
-    const categoryData = data.reduce((result, item) => {
-      if (!result[item.category]) {
-        result[item.category] = 0;
+  });
+}
+
+function getDataForCategories() {
+  $.ajax({
+      type: "GET",
+      url:"http://localhost:80/purchasehistory/salesbycategory",
+      success: function(data){
+          let parsedData = [];
+          for(let category in data) {
+              parsedData.push({
+                  'category': category,
+                  'purchase': data[category]
+              });
+          }
+          fillGraph("categoryGraph", parsedData, 'category', 'purchase');
+      },
+      error: function (XMLHttpRequest, textStatus, error) {
+          console.log(error);
       }
-      result[item.category] += item.sales;
-      return result;
-    }, {});
-  
-    const categoryGraphData = Object.entries(categoryData).map(([category, sales]) => ({ category, sales }));
-    const categoryGraphOptions = {
-      title: 'Number of Sales by Product Category',
-      type: 'bar',
-      xLabel: 'Category',
-      yLabel: 'Number of Sales',
-    };
-    js3d.graph('graph1', categoryGraphData, categoryGraphOptions);
-  
-    const dateData = data.reduce((result, item) => {
-      const date = item.date.substring(0, 10);
-      if (!result[date]) {
-        result[date] = 0;
+  });
+}
+
+function getDataForProducts() {
+  $.ajax({
+      type: "GET",
+      url:"http://localhost:80/products/groupproductsbycat",
+      success: function(data){
+          let parsedData = [];
+          data.forEach(category => {
+              parsedData.push({
+                  'category': category["_id"]["category"],
+                  'amount': category.count
+              });
+          });
+          fillGraph("productsGraph", parsedData, 'category', 'amount');
+      },
+      error: function (XMLHttpRequest, textStatus, error) {
+          console.log(error);
       }
-      result[date] += item.sales;
-      return result;
-    }, {});
-  
-    const dateGraphData = Object.entries(dateData).map(([date, sales]) => ({ date, sales }));
-    const dateGraphOptions = {
-      title: 'Number of Sales by Date',
-      type: 'line',
-      xLabel: 'Date',
-      yLabel: 'Number of Sales',
-    };
-    js3d.graph('graph2', dateGraphData, dateGraphOptions);
-  }
-  
-  function getProduct(id) {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        type: 'GET',
-        url: 'http://localhost:80/products/' + id,
-        success: function (data) {
-          resolve(data);
-        },
-        error: function (xhr, status, error) {
-          console.error(error);
-          reject(error);
-        }
-      });
-    });
-  }
-  
-  window.addEventListener('load', renderGraphs);
-  
-  
-  function getPurchaseHistory() {
-    return new Promise(function(resolve, reject) {
-      $.ajax({
-        type: 'GET',
-        url: 'http://localhost:80/purchasehistory',
-        success: function(data) {
-          resolve(data);
-        },
-        error: function(xhr, status, error) {
-          console.error(error);
-          reject(error);
-        },
-      });
-    });
-  }
-  
+  });
+}
+
+function fillGraph(graphID, data, xField, yField) {
+  var margin = {top: 30, right: 30, bottom: 70, left: 60},
+      width = 600 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+  var svg = d3.select("#"+graphID)
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+
+// X axis
+  var x = d3.scaleBand()
+      .range([ 0, width ])
+      .domain(data.map(function(d) { return d[xField]; }))
+      .padding(0.2);
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
+
+// Add Y axis
+  var y = d3.scaleLinear()
+      .domain([0, Math.max.apply(Math, data.map(d => d[yField]))])
+      .range([height, 0]);
+  svg.append("g")
+      .call(d3.axisLeft(y));
+
+// Bars
+  svg.selectAll("mybar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("x", function(d) { return x(d[xField]); })
+      .attr("y", function(d) { return y(d[yField]); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d[yField]); })
+      .attr("fill", "#69b3a2")
+}
