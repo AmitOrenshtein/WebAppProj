@@ -1,8 +1,8 @@
 const Userservice = require('../services/user')
 
 const createUser = async (req,res) => {
-  const {username, password, shoppingCart, deliveryAdress, userType}  = req.body
-  const newUser = await Userservice.createUser(username, password, shoppingCart, deliveryAdress, userType);
+  const {username, password, deliveryAdress}  = req.body
+  const newUser = await Userservice.createUser(username, password, deliveryAdress);
   res.json(newUser)
 }
 

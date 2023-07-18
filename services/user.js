@@ -1,15 +1,13 @@
 //const { describe } = require('node:test');
 const User = require('../models/user')
 
-const createUser = async (username, password, shoppingCart, deliveryAdress, userType) => {
+const createUser = async (username, password, deliveryAdress) => {
     const user = new User(
             {
                 username:username,
                 password:password,
                 deliveryAdress:deliveryAdress,
-                userType:userType,
-                shoppingCart:shoppingCart
-                //TODO: create refernce to shopping cart
+                userType:'Regular'
             });
             customeResponse = await user.save()
             .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")

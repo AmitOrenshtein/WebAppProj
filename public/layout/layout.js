@@ -1,4 +1,5 @@
 let loggedUser = undefined;
+document.title = "ShoesShop";
 $.holdReady(true);
 $.ajax({
     type: "GET",

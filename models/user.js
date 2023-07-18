@@ -12,10 +12,6 @@ const User = new Schema({
         type: String,
         required: [true, "password is required, please re-enter"],
     },
-    //TODO make reference to shopping cart objects
-    shoppingCart: {
-        type: String,
-    },
     deliveryAdress: {
         type: String,
     },
