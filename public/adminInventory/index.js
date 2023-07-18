@@ -99,45 +99,57 @@ function renderProducts(products) {
     createProduct();
   });
 }
+var isUpdating = false;
 
 function updateProduct(productId) {
+  if (isUpdating) {
+    return;
+  }
+  isUpdating = true;
+
   var updatedProduct = {};
 
   updatedProduct.name = prompt('Enter the updated product name:');
   if (updatedProduct.name === null) {
+    isUpdating = false; 
     return;
   }
 
   updatedProduct.category = prompt('Enter the updated product category:');
   if (updatedProduct.category === null) {
+    isUpdating = false; 
     return;
   }
 
   updatedProduct.brand = prompt('Enter the updated product brand:');
   if (updatedProduct.brand === null) {
+    isUpdating = false; 
     return;
   }
 
   updatedProduct.price = parseFloat(prompt('Enter the updated product price:'));
   if (isNaN(updatedProduct.price) || updatedProduct.price <= 0) {
+    isUpdating = false; 
     console.error('Invalid price entered');
     return;
   }
-  updatedProduct.price = updatedProduct.price.toFixed(2);
 
   updatedProduct.amountInInventory = parseInt(prompt('Enter the updated product amount in inventory:'));
   if (isNaN(updatedProduct.amountInInventory) || updatedProduct.amountInInventory < 0) {
+    isUpdating = false; 
     console.error('Invalid amount entered');
     return;
   }
 
   updatedProduct.image = prompt('Enter the updated product image URL:');
   if (updatedProduct.image === null) {
+    isUpdating = false; 
     return;
   }
 
   updatedProduct.video = prompt('Enter the updated product video URL:');
   if (updatedProduct.video === null) {
+    isUpdating = false; 
     return;
   }
 
@@ -148,9 +160,13 @@ function updateProduct(productId) {
     success: function(response) {
       console.log('Product updated successfully:', response);
       loadProducts();
+      isUpdating = false;
+
     },
     error: function(xhr, status, error) {
       console.error('Error updating product:', error);
+      isUpdating = false; 
+
     }
   });
 }
@@ -166,6 +182,9 @@ function deleteProduct(productId) {
     },
     error: function(xhr, status, error) {
       console.error('Error deleting product:', error);
+    },
+    complete: function() {
+      isUpdating = false;
     }
   });
 }
