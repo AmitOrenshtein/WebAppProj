@@ -107,7 +107,7 @@ const updateProduct = async (id, name,image,video,brand,description, category, a
         product.price = price;
     customeResponse = await product.save()
     .then(()=> true)
-    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
+    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces", err);
     return "invalid input, please note your required fields, types & spaces"})
     return customeResponse
 
