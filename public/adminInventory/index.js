@@ -49,8 +49,6 @@ function renderProducts(products) {
     var categoryElement = $('<p class="prodCategory"></p>');
     categoryElement.text('Category: ' + product.category);
 
-    var supplierElement = $('<p class="prodSupplier"></p>');
-    supplierElement.text('Supplier: ' + product.supplier);
     var brandElement = $('<p class="prodBrand"></p>');
     brandElement.text('Brand: ' + product.brand);
 
@@ -59,6 +57,9 @@ function renderProducts(products) {
 
     var priceElement = $('<p class="prodPrice"></p>');
     priceElement.text('Price: ' + product.price.toFixed(2));
+
+    var amountElement = $('<p class="prodAmount"></p>');
+    amountElement.text('Amount: ' + product.amountInInventory);
 
     var updateButton = $('<button class="updateBtn">Update</button>');
     updateButton.data('id', product._id);
@@ -72,6 +73,7 @@ function renderProducts(products) {
     productElement.append(brandElement);
     productElement.append(descElement);
     productElement.append(priceElement);
+    productElement.append(amountElement);
     productElement.append(updateButton);
     productElement.append(deleteButton);
 
@@ -99,6 +101,7 @@ function renderProducts(products) {
     createProduct();
   });
 }
+
 var isUpdating = false;
 
 function updateProduct(productId) {
