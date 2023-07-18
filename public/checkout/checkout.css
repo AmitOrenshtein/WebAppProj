@@ -6,3 +6,7 @@
 #checkoutMessage {
     text-align: center;
 }
+
+#validMes {
+    color: red;
+}
