@@ -2,3 +2,11 @@
     margin-top: 20px;
     max-width: 500px !important;
 }
+
+#checkoutMessage {
+    text-align: center;
+}
+
+#validMes {
+    color: red;
+}

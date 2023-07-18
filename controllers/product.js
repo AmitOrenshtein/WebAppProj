@@ -81,9 +81,8 @@ const getProductsByPrice = async(req,res) =>{
 
 const updateProduct = async (req,res) => {
   const {name,image, video, brand, descrpition, category, amountInInventory,price}  = req.body
-  // console.log("req in controller: ", req.body)
   const product = await Productservice.updateProduct(req.params.id, name, image, video, brand, descrpition, category, amountInInventory,price);
-  if (product !== true){
+  if (!product){
     return res.status(404).json({errors:[product]});
   }
   // console.log("controller product is:", product)

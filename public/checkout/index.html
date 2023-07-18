@@ -13,7 +13,10 @@
 <section id="page-content">
     <div class="container checkout-container">
         <div id="checkoutMessage" class="hidden h4 my-4">
-            Thank you for purchasing
+            Thank you for purchasing!
+            <p>
+                You can go check our <a href="https://www.facebook.com/profile.php?id=100094643028859">facebook page</a>
+            </p>
         </div>
         <form id="checkoutForm" >
             <div class="mb-3">
@@ -36,8 +39,7 @@
                 <label for="cvvNumber" class="form-label">CVV</label>
                 <input type="text" class="form-control" id="cvvNumber" maxlength="3" required>
             </div>
-            <div class="invalid-feedback mb-3" id="loginValidation">
-
+            <div class="mb-3" id="validMes">
             </div>
             <button type="submit" class="btn btn-primary">Pay</button>
         </form>
