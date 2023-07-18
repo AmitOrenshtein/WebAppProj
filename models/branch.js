@@ -8,7 +8,7 @@ const Branch = new Schema({
         type: String,
         required: [true, "name is required"],
     },
-    ltd: {
+    lat: {
         type: Number,
         required: [true, "lat is required"],
     },

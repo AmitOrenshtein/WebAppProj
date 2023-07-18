@@ -1,16 +1,16 @@
 const Branch = require('../models/branch')
 
-const createBranch = async (name, lng,ltd) => {
+const createBranch = async (name, lng,lat) => {
     const branch = new Branch(
             {
                 name:name,
                 lng:lng,
-                ltd:ltd
+                lat:lat
             });
     //return await branch.save()
     customeResponse = await branch.save()
     .then(()=> true)
-    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces")
+    .catch((err)=> {console.log("invalid input, please note your required fields, types & spaces", err);
     return false})
     return customeResponse
 }
@@ -30,7 +30,7 @@ const getBranchesByName = async(searchName) =>{
     //TODO make this work including the multiple GET commands 
 }
 
-const updateBranch = async (id,name, address) => {
+const updateBranch = async (id,name, lng,lat) => {
     const branch = await getBranchById(id).catch(error =>false)
     if (!branch)
         return "branch not found";
@@ -38,10 +38,10 @@ const updateBranch = async (id,name, address) => {
         branch.name = branch.name;
     else  
         branch.name = name;
-    if(!address)
-        branch.address = branch.address;
-    else
-        branch.address = address;
+    if(lng)
+        branch.lng = lng;
+    if(lat)
+        branch.lat = lat;
     let res = await branch.save()
     .catch(error=>"Input invalid")
     return res;
