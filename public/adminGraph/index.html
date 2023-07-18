@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="node_modules/js3.d/js3d.min.js"></script>
-  
-  <title>Admin Graphs</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/layout/layout.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
 </head>
-
 <body>
-  <h1>Admin Graphs</h1>
-
-  <div id="error-container"></div>
-
-  <div class="graph-container">
-    <h2>Graph 1</h2>
-    <div id="graph1"></div>
-  </div>
-
-  <div class="graph-container">
-    <h2>Graph 2</h2>
-    <div id="graph2"></div>
-  </div>
-
-  <script src="index.js"></script>
+<section id="header"></section>
+<section id="page-content">
+    <div class="container graphsPageContainer">
+        <div class="graphsMenu">
+            <button forGraph="categoryGraph" class="btn btn-primary graphsBtn" disabled>Sales by Category</button>
+            <button forGraph="datesGraph" class="btn btn-primary graphsBtn">Sales by Date</button>
+            <button forGraph="productsGraph" class="btn btn-primary graphsBtn">Products by Category</button>
+        </div>
+        <div id="categoryGraph" class="myGraphs"></div>
+        <div id="datesGraph" class="myGraphs hidden"></div>
+        <div id="productsGraph" class="myGraphs hidden"></div>
+    </div>
+</section>
+<section id="footer"></section>
 </body>
-
 </html>
