@@ -15,7 +15,6 @@ const createBranch = async (name, lng,lat) => {
     return customeResponse
 }
 
-
 const getBranchById = async(id) =>{
     return await Branch.findById(id)
 }
@@ -62,5 +61,5 @@ module.exports = {
     getBranchesByName,
     getBranches,
     updateBranch,
-    deleteBranch
+    deleteBranch,
 }

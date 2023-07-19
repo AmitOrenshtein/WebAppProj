@@ -9,6 +9,9 @@ branchRouter.route('/')
 
 branchRouter.route('/name/:name')
     .get(branchesController.getBranchesByName)
+ 
+branchRouter.route('/search')
+    .post(branchesController.searchBranches);    
 
 branchRouter.route('/:id')
     .get(branchesController.getBranch)

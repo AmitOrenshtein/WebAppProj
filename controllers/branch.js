@@ -58,6 +58,18 @@ const deleteBranch = async (req,res) => {
   res.send();
 }
 
+const searchBranches = async (req, res) => {
+  try {
+    const { branchName } = req.body;
+    const branches = await Branchservice.getBranchesByName(branchName);
+    res.json(branches);
+  } catch (error) {
+    console.error('Error while searching branches:', error);
+    res.status(500).json({ message: 'Error while searching branches!' });
+  }
+};
+
+
 module.exports = {
     createBranch,
     getBranchesByWS,
@@ -65,5 +77,6 @@ module.exports = {
     getBranch,
     getBranchesByName,
     updateBranch,
-    deleteBranch
+    deleteBranch,
+    searchBranches
 }

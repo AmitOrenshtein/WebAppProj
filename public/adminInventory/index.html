@@ -16,9 +16,67 @@
   <h1>Admin Inventory Management</h1>
 
   <h2>Products</h2>
+  <div class="container my-4">
+    <form id="searchForm">
+    <div class="row my-4 searchForm">
+        <div class="form-group col-12 col-md-5 col-lg-4">
+            <label for="searchText" class="">Product name</label>
+            <input type="text" class="form-control" id="searchText" aria-describedby="search" placeholder="">
+        </div>
+        <div class="form-group col-12 col-md-3 col-lg-2">
+            <label for="searchCategory">Category</label>
+            <select class="form-control" id="searchCategory">
+                <option value="none" selected></option>
+                <option>Football</option>
+                <option>Basketball</option>
+                <option>Running</option>
+            </select>
+        </div>
+        <div class="form-group col-12 col-md-3 col-lg-2">
+            <label for="searchBrand">Brand</label>
+            <select class="form-control" id="searchBrand">
+                <option value="none" selected></option>
+                <option>Adidas</option>
+                <option>Reebok</option>
+                <option>Nike</option>
+            </select>
+        </div>
+        <div class="form-group col-12 col-md-5 col-lg-3">
+            <label for="searchMinPrice">Price range</label>
+            <label for="searchMaxPrice" class="hidden"></label>
+            <div class="row">
+                <div class="col-5">
+                    <input type="number" class="searchPriceRange form-control" id="searchMinPrice" aria-describedby="search" placeholder="">
+                </div>
+                -
+                <div class="col-5">
+                    <input type="number" class="searchPriceRange form-control" id="searchMaxPrice" aria-describedby="search" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 col-md-1">
+            <label class="placeholderLabel">&#8205;</label>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+    </form>
+    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3" id="productsRow"></div>
+</div>
+
   <div id="products-container"></div>
 
   <h2>Branches</h2>
+  <form id="branchSearchForm">
+    <div class="row my-4 searchForm">
+      <div class="form-group col-12 col-md-5 col-lg-4">
+        <label for="branchSearchText" class="">Branch name</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="branchSearchText" aria-describedby="search" placeholder="">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </div>
+    </div>
+  </form>
   <div id="branches-container"></div>
 
   <script src="index.js"></script>

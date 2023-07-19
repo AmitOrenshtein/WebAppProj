@@ -1,6 +1,14 @@
 $(document).ready(function() {
   loadProducts();
   loadBranches();
+  $( "#searchForm" ).on( "submit", function( event ) {
+    event.preventDefault();
+    search();
+  });
+  $("#branchSearchForm").on("submit", function(event) {
+    event.preventDefault();
+    searchBranches();
+  });
 });
 
 function loadProducts() {
@@ -31,12 +39,90 @@ function loadBranches() {
   });
 }
 
+function search() {
+  let searchText = $("#searchText").val();
+  let category = $("#searchCategory").val();
+  let brand = $("#searchBrand").val();
+  let minPrice = $("#searchMinPrice").val();
+  let maxPrice = $("#searchMaxPrice").val();
+
+  if (isNaN(minPrice) || minPrice < 0 || isNaN(maxPrice) || maxPrice < 0 || minPrice>maxPrice) {
+    console.error("Invalid price range entered");
+    return;
+  }
+
+  if (
+    searchText === "" &&
+    category === "none" &&
+    brand === "none" &&
+    minPrice === "" &&
+    maxPrice === ""
+  ) {
+    loadProducts();
+  } else{
+    let filter = {};
+    if (searchText !== "")
+      filter.name = searchText;
+    if (category !== "none")
+      filter.category = category;
+    if (brand !== "none")
+      filter.brand = brand;
+    if (minPrice !== "" && minPrice !== 0)
+      filter.minPrice = minPrice;
+    if (maxPrice !== "" && maxPrice !== 0)
+      filter.maxPrice = maxPrice;
+
+    let branchSearchText = $("#branchSearchText").val();
+    if (branchSearchText !== "")
+      filter.branchName = branchSearchText;
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:80/products/search",
+      data: filter,
+      success: function (data) {
+        console.log(data);
+        renderProducts(data);
+      },
+      error: function (XMLHttpRequest, textStatus, error) {
+        alert("Error while purchasing! message: " + XMLHttpRequest.responseText);
+      },
+    });
+  }
+}
+
+function searchBranches() {
+  let branchSearchText = $("#branchSearchText").val();
+  let filter = {};
+  if (branchSearchText === "") {
+      loadBranches();
+  }else{
+  
+    if (branchSearchText !== "") {
+      filter.branchName = branchSearchText;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:80/branches/search",
+      data: filter,
+      success: function(data) {
+        console.log(data);
+        renderBranches(data);
+      },
+      error: function(XMLHttpRequest, textStatus, error) {
+        alert("Error while searching branches! Message: " + XMLHttpRequest.responseText);
+      },
+    });
+  }
+}
+
 function renderProducts(products) {
   var productsContainer = $('#products-container');
   productsContainer.empty();
 
   for (var i = 0; i < products.length; i++) {
-    let product = products[i];
+    var product = products[i];
     var productElement = $('<div class="product"></div>');
 
     var titleElement = $('<h3 class="prodTitle"></h3>');
@@ -56,14 +142,14 @@ function renderProducts(products) {
     descElement.text(product.description);
 
     var priceElement = $('<p class="prodPrice"></p>');
-    priceElement.text('Price: ' + product.price.toFixed(2));
+    var formattedPrice =Math.floor(product.price)+ '$'; 
+    priceElement.text('Price: ' + formattedPrice);
 
     var amountElement = $('<p class="prodAmount"></p>');
     amountElement.text('Amount: ' + product.amountInInventory);
 
     var updateButton = $('<button class="updateBtn">Update</button>');
     updateButton.data('id', product._id);
-    updateButton.on("click", () => updateProduct(product));
 
     var deleteButton = $('<button class="deleteBtn">Delete</button>');
     deleteButton.data('id', product._id);
@@ -84,6 +170,15 @@ function renderProducts(products) {
   var createButton = $('<button class="createBtn">Create</button>');
   productsContainer.append(createButton);
 
+  productsContainer.on('click', '.updateBtn', function() {
+    var productId = $(this).data('id');
+    if (productId === 'create') {
+      createProduct();
+    } else {
+      updateProduct(productId);
+    }
+  });
+
   productsContainer.on('click', '.deleteBtn', function() {
     var productId = $(this).data('id');
     deleteProduct(productId);
@@ -96,8 +191,7 @@ function renderProducts(products) {
 
 var isUpdating = false;
 
-function updateProduct(product) {
-  let productId = product._id;
+function updateProduct(productId) {
   if (isUpdating) {
     return;
   }
@@ -105,45 +199,45 @@ function updateProduct(product) {
 
   var updatedProduct = {};
 
-  updatedProduct.name = prompt('Enter the updated product name:', product.name);
+  updatedProduct.name = prompt('Enter the updated product name:');
   if (updatedProduct.name === null) {
     isUpdating = false; 
     return;
   }
 
-  updatedProduct.category = prompt('Enter the updated product category:', product.category);
+  updatedProduct.category = prompt('Enter the updated product category:');
   if (updatedProduct.category === null) {
     isUpdating = false; 
     return;
   }
 
-  updatedProduct.brand = prompt('Enter the updated product brand:', product.brand);
+  updatedProduct.brand = prompt('Enter the updated product brand:');
   if (updatedProduct.brand === null) {
     isUpdating = false; 
     return;
   }
 
-  updatedProduct.price = parseFloat(prompt('Enter the updated product price:', product.price+""));
+  updatedProduct.price = parseFloat(prompt('Enter the updated product price:'));
   if (isNaN(updatedProduct.price) || updatedProduct.price <= 0) {
     isUpdating = false; 
     console.error('Invalid price entered');
     return;
   }
 
-  updatedProduct.amountInInventory = parseInt(prompt('Enter the updated product amount in inventory:', product.amountInInventory+""));
+  updatedProduct.amountInInventory = parseInt(prompt('Enter the updated product amount in inventory:'));
   if (isNaN(updatedProduct.amountInInventory) || updatedProduct.amountInInventory < 0) {
     isUpdating = false; 
     console.error('Invalid amount entered');
     return;
   }
 
-  updatedProduct.image = prompt('Enter the updated product image URL:', product.image);
+  updatedProduct.image = prompt('Enter the updated product image URL:');
   if (updatedProduct.image === null) {
     isUpdating = false; 
     return;
   }
 
-  updatedProduct.video = prompt('Enter the updated product video URL:', product.video);
+  updatedProduct.video = prompt('Enter the updated product video URL:');
   if (updatedProduct.video === null) {
     isUpdating = false; 
     return;
@@ -244,7 +338,7 @@ function renderBranches(branches) {
   branchesContainer.empty();
 
   for (var i = 0; i < branches.length; i++) {
-    let branch = branches[i];
+    var branch = branches[i];
     var branchElement = $('<div class="branch"></div>');
 
     var nameElement = $('<h3 class="branchName"></h3>');
@@ -252,7 +346,6 @@ function renderBranches(branches) {
 
     var updateButton = $('<button class="updateBtn">Update</button>');
     updateButton.data('id', branch._id);
-    updateButton.on("click", () => updateBranch(branch));
 
     var deleteButton = $('<button class="deleteBtn">Delete</button>');
     deleteButton.data('id', branch._id);
@@ -267,6 +360,15 @@ function renderBranches(branches) {
   var createButton = $('<button class="createBtn">Create</button>');
   branchesContainer.append(createButton);
 
+  branchesContainer.on('click', '.updateBtn', function() {
+    var branchId = $(this).data('id');
+    if (branchId === 'create') {
+      createBranch();
+    } else {
+      updateBranch(branchId);
+    }
+  });
+
   branchesContainer.on('click', '.deleteBtn', function() {
     var branchId = $(this).data('id');
     deleteBranch(branchId);
@@ -278,21 +380,20 @@ function renderBranches(branches) {
 }
 
 
-function updateBranch(branch) {
-  let branchId = branch._id
+function updateBranch(branchId) {
   var updatedBranch = {};
 
-  updatedBranch.name = prompt('Enter the updated branch name:', branch.name);
+  updatedBranch.name = prompt('Enter the updated branch name:');
   if (updatedBranch.name === null) {
     return;
   }
-  updatedBranch.lat = parseFloat(prompt('Enter the updated branch latitude:', branch.lat));
+  updatedBranch.lat = parseFloat(prompt('Enter the updated branch latitude:'));
   if (isNaN(updatedBranch.lat)) {
     console.error('Invalid latitude entered');
     return;
   }
 
-  updatedBranch.lng = parseFloat(prompt('Enter the updated branch longitude:', branch.lng));
+  updatedBranch.lng = parseFloat(prompt('Enter the updated branch longitude:'));
   if (isNaN(updatedBranch.lng)) {
     console.error('Invalid longitude entered');
     return;
