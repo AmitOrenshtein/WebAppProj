@@ -1,5 +1,8 @@
 $(document).ready(function () {
     if (loggedUser) {
+        if(loggedUser.isAdmin) {
+            $("#AdminShowAllDiv").removeClass("hidden");
+        }
         $( "#searchForm" ).on( "submit", function( event ) {
             event.preventDefault();
             searchPurchaseHistory();
@@ -32,6 +35,7 @@ function searchPurchaseHistory() {
     let category = $("#searchCategory").val();
     let minPrice = $("#searchMinPrice").val();
     let maxPrice = $("#searchMaxPrice").val();
+    let isAdmin = loggedUser.isAdmin && $("#showAll").is(":checked");
     let filter = {};
     if(category !== "none")
         filter.category = category;
@@ -43,6 +47,7 @@ function searchPurchaseHistory() {
         filter.fromDate = new Date(fromDate);
     if(toDate !== "")
         filter.toDate = new Date(toDate);
+    filter.isAdmin = isAdmin;
     $.ajax({
         type: "POST",
         url: "http://localhost/purchaseHistory/search",
