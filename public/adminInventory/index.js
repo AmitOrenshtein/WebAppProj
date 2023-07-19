@@ -45,9 +45,28 @@ function search() {
   let brand = $("#searchBrand").val();
   let minPrice = $("#searchMinPrice").val();
   let maxPrice = $("#searchMaxPrice").val();
+  if (searchText !== "" && !isValidName(searchText)) {
+    showError("Invalid characters entered in the product name.");
+    return;
+  }
 
-  if (isNaN(minPrice) || minPrice < 0 || isNaN(maxPrice) || maxPrice < 0 || minPrice>maxPrice) {
-    console.error("Invalid price range entered");
+  if (
+    (minPrice !== "" && isNaN(parseFloat(minPrice))) ||
+    (maxPrice !== "" && isNaN(parseFloat(maxPrice)))
+  ) {
+    showError("Invalid price entered. Please enter a valid number.");
+    return;
+  }
+  if (
+    (minPrice !== "" && parseFloat(minPrice) < 0) ||
+    (maxPrice !== "" && parseFloat(maxPrice) < 0)
+  ) {
+    showError("Price cannot be negative.");
+    return;
+  }
+
+  if (minPrice !== "" && maxPrice !== "" && parseFloat(minPrice) > parseFloat(maxPrice)) {
+    showError("Minimum price cannot be greater than maximum price.");
     return;
   }
 
@@ -97,6 +116,10 @@ function searchBranches() {
   if (branchSearchText === "") {
       loadBranches();
   }else{
+    if (branchSearchText !== "" && !isValidName(branchSearchText)) {
+      showError("Invalid characters entered in the branch name.");
+      return;
+    }
   
     if (branchSearchText !== "") {
       filter.branchName = branchSearchText;
@@ -459,5 +482,27 @@ function createBranch() {
     error: function(xhr, status, error) {
       console.error('Error creating branch:', error);
     }
+  });
+}
+
+function isValidName(name) {
+  const nameRegex = /^[a-zA-Z\s]*$/;
+  return nameRegex.test(name);
+}
+
+function showError(message) {
+  $("#error-message").text(message);
+  $("#error-modal").modal("show");
+
+  $("#error-modal .close").on("click", function() {
+    $("#error-modal").modal("hide");
+  });
+
+  $("#error-modal .modal-footer .btn-secondary").on("click", function() {
+    $("#error-modal").modal("hide");
+  });
+
+  $("#error-modal").on("hidden.bs.modal", function () {
+    $("#error-modal .modal-footer .btn-secondary").off("click");
   });
 }
