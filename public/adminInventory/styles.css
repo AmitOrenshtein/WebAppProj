@@ -54,3 +54,17 @@ h1 {
 #suppliers-container {
   margin-top: 40px;
 }
+
+.createBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.createBtn {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
