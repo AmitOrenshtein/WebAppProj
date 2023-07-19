@@ -78,12 +78,15 @@ const createPurchasehistory = async (req,res) => {
       }
 
   const searchPurchaseHistory = async (req, res) => {
-      const {fromDate, toDate, category, minPrice, maxPrice}  = req.body;
+      const {isAdmin, fromDate, toDate, category, minPrice, maxPrice}  = req.body;
+      let isAdminBoolean = (isAdmin && (isAdmin === 'true' || isAdmin === true));
       if(!req.session || !req.session.loggedUser) {
           return res.status(400).json({errors:['User is not logged in!']});
+      } else if(isAdminBoolean && !req.session.loggedUser.isAdmin) {
+          return res.status(400).json({errors:['User is not admin!']});
       } else {
           let userId = req.session.loggedUser.id;
-          const result = await purchasehistoryservice.searchPurchaseHistory(userId, fromDate, toDate, category, minPrice, maxPrice);
+          const result = await purchasehistoryservice.searchPurchaseHistory(isAdminBoolean, userId, fromDate, toDate, category, minPrice, maxPrice);
           res.json(result);
       }
   }

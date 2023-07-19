@@ -124,8 +124,11 @@ const deletePurchasehistory = async (id) => {
     return purchasehistory;
 }
 
-const searchPurchaseHistory = async (userId, fromDate, toDate, category, minPrice, maxPrice) => {
-    let filter = {userID: userId};
+const searchPurchaseHistory = async (isAdmin, userId, fromDate, toDate, category, minPrice, maxPrice) => {
+    let filter = {}
+    if(!isAdmin) {
+        filter.userID = userId;
+    }
     if(fromDate || toDate) {
         filter.purchaseDate = {};
         if(fromDate)
